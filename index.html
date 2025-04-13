@@ -17,7 +17,7 @@
       background: white;
       padding: 2rem;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
     h1, p {
       text-align: center;
@@ -66,18 +66,29 @@
       background-color: #f9fdfc;
     }
     .section-title {
-      margin-top: 0;
       font-size: 1.2rem;
       font-weight: bold;
       color: #2c3e50;
       border-bottom: 1px solid #ccc;
       padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
     }
     .checkbox-label {
       display: flex;
       align-items: center;
       gap: 0.5rem;
       margin-top: 0.5rem;
+    }
+    fieldset {
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+    legend {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 0.5rem;
     }
   </style>
 </head>
@@ -86,16 +97,17 @@
     <h1>Greenwing Youth Event</h1>
     <p>Hosted by St. Mary's County Ducks Unlimited</p>
     <p><strong>Date:</strong> June 7th, 8 AM – 2 PM</p>
-    <p><strong>Location:</strong> Sanner's Lake Sportsmen's Club<br>21374 Sanner's Lane, Lexington Park, MD 20653</p>
+    <p>
+      <strong>Location:</strong> Sanner's Lake Sportsmen's Club<br>
+      21374 Sanner's Lane, Lexington Park, MD 20653
+    </p>
     <p><strong>Cost:</strong> $20 per child (includes membership and lunch)</p>
     <p>Children must be accompanied by an adult.</p>
 
     <form action="#" method="POST">
-
       <!-- Child Info Section -->
-      <div class="section-box">
-        <div class="section-title">Child Information</div>
-
+      <fieldset class="section-box">
+        <legend>Child Information</legend>
         <div class="row">
           <div class="field">
             <label for="childFirstName">First Name:</label>
@@ -109,8 +121,9 @@
 
         <div class="row">
           <div class="field">
-            <label for="dob">Date of Birth (MM/YY):</label>
-            <input type="text" id="dob" name="dob" placeholder="MM/YY" required>
+            <label for="dob">Date of Birth:</label>
+            <!-- Changed type to "date" for better usability -->
+            <input type="date" id="dob" name="dob" required>
           </div>
           <div class="field">
             <label for="age">Age:</label>
@@ -120,30 +133,35 @@
 
         <label for="childAddress">Address:</label>
         <input type="text" id="childAddress" name="childAddress" placeholder="If different than Parent/Guardian">
+
         <label class="checkbox-label">
           <input type="checkbox" id="sameAddressCheckbox">
           Same as Parent/Guardian Address
         </label>
-      </div>
+      </fieldset>
 
-      <!-- Parent Info Section -->
-      <label for="parentName">Parent/Guardian Name:</label>
-      <input type="text" id="parentName" name="parentName" required>
+      <!-- Parent/Guardian Info Section -->
+      <fieldset class="section-box">
+        <legend>Parent/Guardian Information</legend>
+        <label for="parentName">Name:</label>
+        <input type="text" id="parentName" name="parentName" required>
 
-      <label for="parentAddress">Parent/Guardian Address:</label>
-      <input type="text" id="parentAddress" name="parentAddress" required>
+        <label for="parentAddress">Address:</label>
+        <input type="text" id="parentAddress" name="parentAddress" required>
 
-      <label for="email">Email Address:</label>
-      <input type="email" id="email" name="email" required>
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required>
 
-      <label for="phone">Phone Number:</label>
-      <input type="tel" id="phone" name="phone" required>
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" required>
+      </fieldset>
 
       <button type="submit">Register Now</button>
     </form>
   </div>
 
   <script>
+    // Update child address field based on the "Same as Parent/Guardian Address" checkbox
     document.getElementById('sameAddressCheckbox').addEventListener('change', function () {
       const parentAddress = document.getElementById('parentAddress').value;
       const childAddressField = document.getElementById('childAddress');
@@ -157,6 +175,7 @@
       }
     });
 
+    // When the parent address changes, update the child address if the checkbox is checked
     document.getElementById('parentAddress').addEventListener('input', function () {
       const sameBox = document.getElementById('sameAddressCheckbox');
       if (sameBox.checked) {
