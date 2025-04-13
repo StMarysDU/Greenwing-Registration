@@ -73,16 +73,17 @@
       padding-bottom: 0.5rem;
       margin-bottom: 1rem;
     }
+    /* Address container adjustments */
     .address-container {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 0.5rem;
+      white-space: nowrap;
     }
     .checkbox-label {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      margin: 0; /* Removed extra margin to align with the Address label */
+      margin: 0;
     }
     fieldset {
       border: none;
@@ -144,10 +145,10 @@
           </div>
         </div>
 
-        <!-- Address and Checkbox placed on the same line -->
+        <!-- Address and Checkbox placed closely on the same line -->
         <div class="address-container">
           <label for="childAddress">Address:</label>
-          <label class="checkbox-label">
+          <label class="checkbox-label" for="sameAddressCheckbox">
             <input type="checkbox" id="sameAddressCheckbox">
             Same as Parent/Guardian Address
           </label>
