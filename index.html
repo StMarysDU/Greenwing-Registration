@@ -12,7 +12,7 @@
       background-color: #f0f8f7;
     }
     .container {
-      max-width: 800px; /* Increased width */
+      max-width: 800px;
       margin: 2rem auto;
       background: white;
       padding: 2rem;
@@ -31,12 +31,21 @@
       font-weight: bold;
     }
     input, select {
-      width: 100%; /* Force full width to prevent wrapping */
+      width: 100%;
       padding: 0.5rem;
       font-size: 1rem;
       border-radius: 5px;
       border: 1px solid #ccc;
       box-sizing: border-box;
+    }
+    .row {
+      display: flex;
+      gap: 1rem;
+    }
+    .row .field {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
     button {
       background-color: #28a745;
@@ -81,11 +90,16 @@
       <div class="section-box">
         <div class="section-title">Child Information</div>
 
-        <label for="childFirstName">First Name:</label>
-        <input type="text" id="childFirstName" name="childFirstName" required>
-
-        <label for="childLastName">Last Name:</label>
-        <input type="text" id="childLastName" name="childLastName" required>
+        <div class="row">
+          <div class="field">
+            <label for="childFirstName">First Name:</label>
+            <input type="text" id="childFirstName" name="childFirstName" required>
+          </div>
+          <div class="field">
+            <label for="childLastName">Last Name:</label>
+            <input type="text" id="childLastName" name="childLastName" required>
+          </div>
+        </div>
 
         <label for="dob">Date of Birth (MM/YY):</label>
         <input type="text" id="dob" name="dob" placeholder="MM/YY" required>
