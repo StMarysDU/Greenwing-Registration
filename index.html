@@ -169,11 +169,19 @@
   </div>
 
   <script>
-    // Update child address field based on the "Same as Parent/Guardian Address" checkbox
+    // Automatically insert "/" after two digits for month in the Date of Birth field.
+    document.getElementById('dob').addEventListener('input', function () {
+      let val = this.value;
+      // If the user has typed exactly two characters and the slash is not there, append "/".
+      if (val.length === 2 && !val.includes('/')) {
+        this.value = val + '/';
+      }
+    });
+
+    // Update child address field based on the "Same as Parent/Guardian Address" checkbox.
     document.getElementById('sameAddressCheckbox').addEventListener('change', function () {
       const parentAddress = document.getElementById('parentAddress').value;
       const childAddressField = document.getElementById('childAddress');
-
       if (this.checked) {
         childAddressField.value = parentAddress;
         childAddressField.readOnly = true;
@@ -183,7 +191,7 @@
       }
     });
 
-    // When the parent address changes, update the child address if the checkbox is checked
+    // When the parent address changes, update the child address if the checkbox is checked.
     document.getElementById('parentAddress').addEventListener('input', function () {
       const sameBox = document.getElementById('sameAddressCheckbox');
       if (sameBox.checked) {
