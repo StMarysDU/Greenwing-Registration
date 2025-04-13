@@ -120,17 +120,18 @@
         </div>
 
         <div class="row">
-          <!-- Date of Birth Field with separate Month and Year Inputs -->
           <div class="field">
-            <label>Date of Birth:</label>
-            <div style="display: flex; gap: 0.5rem;">
-              <input type="text" id="dobMonth" name="dobMonth" placeholder="MM" 
-                     pattern="(0[1-9]|1[0-2])" title="Enter a valid month (01-12)" 
-                     maxlength="2" required>
-              <input type="text" id="dobYear" name="dobYear" placeholder="YYYY" 
-                     pattern="\d{4}" title="Enter a valid four-digit year" 
-                     maxlength="4" required>
-            </div>
+            <label for="dob">Date of Birth (MM/YYYY):</label>
+            <!-- Single input accepting MM/YYYY with validation -->
+            <input 
+              type="text" 
+              id="dob" 
+              name="dob" 
+              placeholder="MM/YYYY" 
+              pattern="^(0[1-9]|1[0-2])\/\d{4}$" 
+              title="Enter a valid date in MM/YYYY format (e.g., 05/2023)" 
+              maxlength="7" 
+              required>
           </div>
           <div class="field">
             <label for="age">Age:</label>
