@@ -12,7 +12,7 @@
       background-color: #f0f8f7;
     }
     .container {
-      max-width: 600px;
+      max-width: 800px; /* Increased width */
       margin: 2rem auto;
       background: white;
       padding: 2rem;
@@ -31,10 +31,12 @@
       font-weight: bold;
     }
     input, select {
+      width: 100%; /* Force full width to prevent wrapping */
       padding: 0.5rem;
       font-size: 1rem;
       border-radius: 5px;
       border: 1px solid #ccc;
+      box-sizing: border-box;
     }
     button {
       background-color: #28a745;
