@@ -73,6 +73,12 @@
       border-bottom: 1px solid #ccc;
       padding-bottom: 0.5rem;
     }
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
   </style>
 </head>
 <body>
@@ -112,13 +118,20 @@
           </div>
         </div>
 
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" placeholder="If different than Parent/Guardian">
+        <label for="childAddress">Address:</label>
+        <input type="text" id="childAddress" name="childAddress" placeholder="If different than Parent/Guardian">
+        <label class="checkbox-label">
+          <input type="checkbox" id="sameAddressCheckbox">
+          Same as Parent/Guardian Address
+        </label>
       </div>
 
       <!-- Parent Info Section -->
       <label for="parentName">Parent/Guardian Name:</label>
       <input type="text" id="parentName" name="parentName" required>
+
+      <label for="parentAddress">Parent/Guardian Address:</label>
+      <input type="text" id="parentAddress" name="parentAddress" required>
 
       <label for="email">Email Address:</label>
       <input type="email" id="email" name="email" required>
@@ -129,5 +142,27 @@
       <button type="submit">Register Now</button>
     </form>
   </div>
+
+  <script>
+    document.getElementById('sameAddressCheckbox').addEventListener('change', function () {
+      const parentAddress = document.getElementById('parentAddress').value;
+      const childAddressField = document.getElementById('childAddress');
+
+      if (this.checked) {
+        childAddressField.value = parentAddress;
+        childAddressField.readOnly = true;
+      } else {
+        childAddressField.value = '';
+        childAddressField.readOnly = false;
+      }
+    });
+
+    document.getElementById('parentAddress').addEventListener('input', function () {
+      const sameBox = document.getElementById('sameAddressCheckbox');
+      if (sameBox.checked) {
+        document.getElementById('childAddress').value = this.value;
+      }
+    });
+  </script>
 </body>
 </html>
