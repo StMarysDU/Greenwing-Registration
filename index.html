@@ -120,10 +120,17 @@
         </div>
 
         <div class="row">
+          <!-- Date of Birth Field with separate Month and Year Inputs -->
           <div class="field">
-            <label for="dob">Date of Birth (Month/Year):</label>
-            <!-- Using type "month" to capture only month and year -->
-            <input type="month" id="dob" name="dob" required>
+            <label>Date of Birth:</label>
+            <div style="display: flex; gap: 0.5rem;">
+              <input type="text" id="dobMonth" name="dobMonth" placeholder="MM" 
+                     pattern="(0[1-9]|1[0-2])" title="Enter a valid month (01-12)" 
+                     maxlength="2" required>
+              <input type="text" id="dobYear" name="dobYear" placeholder="YYYY" 
+                     pattern="\d{4}" title="Enter a valid four-digit year" 
+                     maxlength="4" required>
+            </div>
           </div>
           <div class="field">
             <label for="age">Age:</label>
