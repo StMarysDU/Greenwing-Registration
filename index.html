@@ -59,11 +59,20 @@
     <p><strong>Cost:</strong> $20 per child (includes membership and lunch)</p>
     <p>Children must be accompanied by an adult.</p>
     <form action="#" method="POST">
-      <label for="childName">Child's Full Name:</label>
-      <input type="text" id="childName" name="childName" required>
+      <label for="childFirstName">Child's First Name:</label>
+      <input type="text" id="childFirstName" name="childFirstName" required>
+
+      <label for="childLastName">Child's Last Name:</label>
+      <input type="text" id="childLastName" name="childLastName" required>
+
+      <label for="dob">Child's Date of Birth (MM/YY):</label>
+      <input type="text" id="dob" name="dob" placeholder="MM/YY" required>
 
       <label for="age">Child's Age:</label>
       <input type="number" id="age" name="age" min="1" required>
+
+      <label for="address">Child's Address:</label>
+      <input type="text" id="address" name="address" required>
 
       <label for="parentName">Parent/Guardian Name:</label>
       <input type="text" id="parentName" name="parentName" required>
