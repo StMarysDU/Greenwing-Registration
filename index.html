@@ -19,17 +19,9 @@
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    h1, p {
-      text-align: center;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    label {
-      font-weight: bold;
-    }
+    h1, p { text-align: center; }
+    form { display: flex; flex-direction: column; gap: 1rem; }
+    label { font-weight: bold; }
     input, select {
       width: 100%;
       padding: 0.5rem;
@@ -38,16 +30,8 @@
       border: 1px solid #ccc;
       box-sizing: border-box;
     }
-    .row {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-    .row .field {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
+    .row { display: flex; gap: 1rem; margin-bottom: 1rem; }
+    .row .field { flex: 1; display: flex; flex-direction: column; }
     button {
       background-color: #28a745;
       color: white;
@@ -57,9 +41,7 @@
       border-radius: 5px;
       cursor: pointer;
     }
-    button:hover {
-      background-color: #218838;
-    }
+    button:hover { background-color: #218838; }
     .section-box {
       border: 2px solid #ccc;
       border-radius: 8px;
@@ -67,18 +49,13 @@
       background-color: #f9fdfc;
       margin-bottom: 1rem;
     }
-    fieldset {
-      border: none;
-      padding: 0;
-      margin: 0;
-    }
+    fieldset { border: none; padding: 0; margin: 0; }
     legend {
       font-size: 1.2rem;
       font-weight: bold;
       color: #2c3e50;
       margin-bottom: 0.5rem;
     }
-    /* Address container */
     .address-container {
       display: flex;
       align-items: center;
@@ -91,20 +68,12 @@
       align-items: center;
       margin: 0;
     }
-    /* Extra spacing for child information fields */
-    .child-box label {
-      margin-bottom: 0.5rem;
-    }
-    .child-box input {
-      margin-bottom: 0.75rem;
-    }
-    /* Extra spacing for parent/guardian information fields */
-    .parent-box label {
-      margin-bottom: 0.5rem;
-    }
-    .parent-box input {
-      margin-bottom: 0.75rem;
-    }
+    /* Extra spacing for the child information fields */
+    .child-box label { margin-bottom: 0.5rem; }
+    .child-box input { margin-bottom: 0.75rem; }
+    /* Extra spacing for the parent/guardian info fields */
+    .parent-box label { margin-bottom: 0.5rem; }
+    .parent-box input { margin-bottom: 0.75rem; }
   </style>
 </head>
 <body>
@@ -119,8 +88,9 @@
     <p><strong>Cost:</strong> $20 per child (includes membership and lunch)</p>
     <p>Children must be accompanied by an adult.</p>
     
-    <form action="#" method="POST">
-      <!-- Parent/Guardian Info Section with updated spacing -->
+    <!-- Update the form action attribute below with your Google Apps Script URL -->
+    <form action="https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" method="POST">
+      <!-- Parent/Guardian Info Section -->
       <fieldset class="section-box parent-box">
         <legend>Parent/Guardian Information</legend>
         <label for="parentName">Name:</label>
@@ -142,7 +112,7 @@
         <input type="number" id="numChildren" name="numChildren" min="1" value="1" required>
       </div>
 
-      <!-- Container for Child Information Boxes -->
+      <!-- Container for dynamically generated Child Information Boxes -->
       <div id="childContainer"></div>
 
       <button type="submit">Register Now</button>
@@ -190,16 +160,16 @@
       `;
     }
 
-    // Function to update all child information boxes based on the number entered.
+    // Function to update the child boxes based on the number entered.
     function updateChildBoxes() {
       const container = document.getElementById('childContainer');
       const num = parseInt(document.getElementById('numChildren').value) || 0;
-      container.innerHTML = ''; // Clear existing boxes
+      container.innerHTML = ''; // Clear existing boxes.
 
       for (let i = 1; i <= num; i++) {
         container.innerHTML += generateChildBox(i);
         
-        // Attach event listener for automatic "/" insertion on the child's DOB field.
+        // Add event listener for auto-inserting "/" into the child's DOB field.
         let dobInput = document.getElementById(`dob_${i}`);
         dobInput.addEventListener('input', function() {
           let val = this.value;
@@ -208,7 +178,7 @@
           }
         });
         
-        // Attach event listener for the child's "Same as Parent/Guardian Address" checkbox.
+        // Add event listener for the child's "Same as Parent/Guardian Address" checkbox.
         document.getElementById(`sameAddressCheckbox_${i}`)
           .addEventListener('change', function() {
             let childAddr = document.getElementById(`childAddress_${i}`);
@@ -222,7 +192,7 @@
       }
     }
 
-    // When parent's address changes, update each child's address if its checkbox is checked.
+    // When the parent's address changes, update each child's address if its checkbox is checked.
     document.getElementById('parentAddress').addEventListener('input', function () {
       const num = parseInt(document.getElementById('numChildren').value) || 0;
       for (let i = 1; i <= num; i++) {
@@ -235,10 +205,10 @@
       }
     });
 
-    // Update child boxes when the number of children changes.
+    // Update child boxes when the number of children is changed.
     document.getElementById('numChildren').addEventListener('input', updateChildBoxes);
 
-    // Generate the initial child box (default number is 1).
+    // Generate the initial child box (default is 1).
     updateChildBoxes();
   </script>
 </body>
