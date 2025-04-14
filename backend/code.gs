@@ -1,7 +1,7 @@
 function doPost(e) {
   try {
     // Use your provided Spreadsheet ID
-    var ss = SpreadsheetApp.openById('1xSKngMq9i-XuVvFTkenMvY4O7aX545D3wIWX1--5868');
+    var ss = SpreadsheetApp.openById('12MTgrkUEAQDwQyko3jYA-8y8VwMUFJb38MCHAJmEIjE');
     var sheet = ss.getSheetByName('Sheet1');
 
     // Capture Parent/Guardian fields.
