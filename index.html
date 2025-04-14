@@ -177,5 +177,33 @@
   </div>
 
   <script>
+    // Function to update the child's address field if the checkbox is checked.
+    function updateChildAddress() {
+      const parentAddress = document.getElementById('parentAddress').value;
+      const childAddressField = document.getElementById('childAddress');
+      const sameAddressChecked = document.getElementById('sameAddressCheckbox').checked;
+      if (sameAddressChecked) {
+        childAddressField.value = parentAddress;
+        childAddressField.readOnly = true;
+      } else {
+        childAddressField.readOnly = false;
+        // Optionally clear the child's address when unchecked:
+        // childAddressField.value = '';
+      }
+    }
+
     // Automatically insert "/" after two digits for month in the Date of Birth field.
-    document.getElementById('dob').addEventListener('input', function ()
+    document.getElementById('dob').addEventListener('input', function () {
+      let val = this.value;
+      // If the user types two characters without a slash, append "/".
+      if (val.length === 2 && !val.includes('/')) {
+        this.value = val + '/';
+      }
+    });
+
+    // Set up event listeners.
+    document.getElementById('sameAddressCheckbox').addEventListener('change', updateChildAddress);
+    document.getElementById('parentAddress').addEventListener('input', updateChildAddress);
+  </script>
+</body>
+</html>
