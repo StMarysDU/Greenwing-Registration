@@ -17,7 +17,7 @@
       background: white;
       padding: 2rem;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     h1, p {
       text-align: center;
@@ -64,26 +64,7 @@
       border-radius: 8px;
       padding: 1rem;
       background-color: #f9fdfc;
-    }
-    .section-title {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #2c3e50;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 0.5rem;
       margin-bottom: 1rem;
-    }
-    /* Address container adjustments */
-    .address-container {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      white-space: nowrap;
-    }
-    .checkbox-label {
-      display: inline-flex;
-      align-items: center;
-      margin: 0;
     }
     fieldset {
       border: none;
@@ -95,6 +76,18 @@
       font-weight: bold;
       color: #2c3e50;
       margin-bottom: 0.5rem;
+    }
+    /* Address container */
+    .address-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+    }
+    .checkbox-label {
+      display: inline-flex;
+      align-items: center;
+      margin: 0;
     }
   </style>
 </head>
@@ -109,9 +102,9 @@
     </p>
     <p><strong>Cost:</strong> $20 per child (includes membership and lunch)</p>
     <p>Children must be accompanied by an adult.</p>
-
+    
     <form action="#" method="POST">
-      <!-- Parent/Guardian Info Section (moved above Child Information) -->
+      <!-- Parent/Guardian Info Section -->
       <fieldset class="section-box">
         <legend>Parent/Guardian Information</legend>
         <label for="parentName">Name:</label>
@@ -127,83 +120,112 @@
         <input type="tel" id="phone" name="phone" required>
       </fieldset>
 
-      <!-- Child Info Section -->
-      <fieldset class="section-box">
-        <legend>Child Information</legend>
-        <div class="row">
-          <div class="field">
-            <label for="childFirstName">First Name:</label>
-            <input type="text" id="childFirstName" name="childFirstName" required>
-          </div>
-          <div class="field">
-            <label for="childLastName">Last Name:</label>
-            <input type="text" id="childLastName" name="childLastName" required>
-          </div>
-        </div>
+      <!-- Number of Children Field -->
+      <div class="section-box">
+        <label for="numChildren">Number of Children Being Registered:</label>
+        <input type="number" id="numChildren" name="numChildren" min="1" value="1" required>
+      </div>
 
-        <div class="row">
-          <div class="field">
-            <label for="dob">Date of Birth (MM/YYYY):</label>
-            <!-- Single input accepting MM/YYYY with validation and forced "/" -->
-            <input 
-              type="text" 
-              id="dob" 
-              name="dob" 
-              placeholder="MM/YYYY" 
-              pattern="^(0[1-9]|1[0-2])\/\d{4}$" 
-              title="Enter a valid date in MM/YYYY format (e.g., 05/2023)" 
-              maxlength="7" 
-              required>
-          </div>
-          <div class="field">
-            <label for="age">Age:</label>
-            <input type="number" id="age" name="age" min="1" required>
-          </div>
-        </div>
-
-        <!-- Address and Checkbox placed closely on the same line -->
-        <div class="address-container">
-          <label for="childAddress">Address:</label>
-          <label class="checkbox-label" for="sameAddressCheckbox">
-            <input type="checkbox" id="sameAddressCheckbox">
-            Same as Parent/Guardian Address
-          </label>
-        </div>
-        <input type="text" id="childAddress" name="childAddress" placeholder="If different than Parent/Guardian">
-      </fieldset>
+      <!-- Container for Child Information Boxes -->
+      <div id="childContainer"></div>
 
       <button type="submit">Register Now</button>
     </form>
   </div>
 
   <script>
-    // Function to update the child's address field if the checkbox is checked.
-    function updateChildAddress() {
-      const parentAddress = document.getElementById('parentAddress').value;
-      const childAddressField = document.getElementById('childAddress');
-      const sameAddressChecked = document.getElementById('sameAddressCheckbox').checked;
-      if (sameAddressChecked) {
-        childAddressField.value = parentAddress;
-        childAddressField.readOnly = true;
-      } else {
-        childAddressField.readOnly = false;
-        // Optionally clear the child's address when unchecked:
-        // childAddressField.value = '';
+    // Function to generate the HTML for a single child information box
+    function generateChildBox(i) {
+      return `
+      <fieldset class="section-box child-box">
+        <legend>Child Information - Child ${i}</legend>
+        <div class="row">
+          <div class="field">
+            <label for="childFirstName_${i}">First Name:</label>
+            <input type="text" id="childFirstName_${i}" name="childFirstName_${i}" required>
+          </div>
+          <div class="field">
+            <label for="childLastName_${i}">Last Name:</label>
+            <input type="text" id="childLastName_${i}" name="childLastName_${i}" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="dob_${i}">Date of Birth (MM/YYYY):</label>
+            <input type="text" id="dob_${i}" name="dob_${i}" placeholder="MM/YYYY"
+              pattern="^(0[1-9]|1[0-2])\\/\\d{4}$" 
+              title="Enter a valid date in MM/YYYY format (e.g., 05/2023)" 
+              maxlength="7" required>
+          </div>
+          <div class="field">
+            <label for="age_${i}">Age:</label>
+            <input type="number" id="age_${i}" name="age_${i}" min="1" required>
+          </div>
+        </div>
+        <div class="address-container">
+          <label for="childAddress_${i}">Address:</label>
+          <label class="checkbox-label" for="sameAddressCheckbox_${i}">
+            <input type="checkbox" id="sameAddressCheckbox_${i}" name="sameAddressCheckbox_${i}">
+            Same as Parent/Guardian Address
+          </label>
+        </div>
+        <input type="text" id="childAddress_${i}" name="childAddress_${i}" placeholder="If different than Parent/Guardian">
+      </fieldset>
+      `;
+    }
+
+    // Function to update all child information boxes based on the number entered
+    function updateChildBoxes() {
+      const container = document.getElementById('childContainer');
+      const num = parseInt(document.getElementById('numChildren').value) || 0;
+      container.innerHTML = ''; // Clear existing boxes
+
+      for (let i = 1; i <= num; i++) {
+        container.innerHTML += generateChildBox(i);
+        
+        // Attach event listener for automatic "/" insertion on the child's DOB field
+        let dobInput = document.getElementById(`dob_${i}`);
+        dobInput.addEventListener('input', function() {
+          let val = this.value;
+          if (val.length === 2 && !val.includes('/')) {
+            this.value = val + '/';
+          }
+        });
+        
+        // Attach event listener for the child's "Same as Parent/Guardian Address" checkbox
+        document.getElementById(`sameAddressCheckbox_${i}`)
+          .addEventListener('change', function() {
+            let childAddr = document.getElementById(`childAddress_${i}`);
+            if (this.checked) {
+              childAddr.value = document.getElementById('parentAddress').value;
+              childAddr.readOnly = true;
+            } else {
+              childAddr.readOnly = false;
+              // Optionally clear the field:
+              // childAddr.value = '';
+            }
+          });
       }
     }
 
-    // Automatically insert "/" after two digits for month in the Date of Birth field.
-    document.getElementById('dob').addEventListener('input', function () {
-      let val = this.value;
-      // If the user types two characters without a slash, append "/".
-      if (val.length === 2 && !val.includes('/')) {
-        this.value = val + '/';
+    // When parent's address changes, update each child's address if its checkbox is checked.
+    document.getElementById('parentAddress').addEventListener('input', function () {
+      const num = parseInt(document.getElementById('numChildren').value) || 0;
+      for (let i = 1; i <= num; i++) {
+        const checkbox = document.getElementById(`sameAddressCheckbox_${i}`);
+        const childAddr = document.getElementById(`childAddress_${i}`);
+        if (checkbox && checkbox.checked) {
+          childAddr.value = this.value;
+          childAddr.readOnly = true;
+        }
       }
     });
 
-    // Set up event listeners.
-    document.getElementById('sameAddressCheckbox').addEventListener('change', updateChildAddress);
-    document.getElementById('parentAddress').addEventListener('input', updateChildAddress);
+    // Update child boxes when the number of children changes
+    document.getElementById('numChildren').addEventListener('input', updateChildBoxes);
+
+    // Generate the initial child box (default number is 1)
+    updateChildBoxes();
   </script>
 </body>
 </html>
