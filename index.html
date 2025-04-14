@@ -98,6 +98,13 @@
     .child-box input {
       margin-bottom: 0.75rem;
     }
+    /* Extra spacing for parent/guardian information fields */
+    .parent-box label {
+      margin-bottom: 0.5rem;
+    }
+    .parent-box input {
+      margin-bottom: 0.75rem;
+    }
   </style>
 </head>
 <body>
@@ -113,8 +120,8 @@
     <p>Children must be accompanied by an adult.</p>
     
     <form action="#" method="POST">
-      <!-- Parent/Guardian Info Section -->
-      <fieldset class="section-box">
+      <!-- Parent/Guardian Info Section with updated spacing -->
+      <fieldset class="section-box parent-box">
         <legend>Parent/Guardian Information</legend>
         <label for="parentName">Name:</label>
         <input type="text" id="parentName" name="parentName" required>
@@ -143,7 +150,7 @@
   </div>
 
   <script>
-    // Function to generate the HTML for a single child information box
+    // Function to generate the HTML for a single child information box.
     function generateChildBox(i) {
       return `
       <fieldset class="section-box child-box">
@@ -183,7 +190,7 @@
       `;
     }
 
-    // Function to update all child information boxes based on the number entered
+    // Function to update all child information boxes based on the number entered.
     function updateChildBoxes() {
       const container = document.getElementById('childContainer');
       const num = parseInt(document.getElementById('numChildren').value) || 0;
@@ -192,7 +199,7 @@
       for (let i = 1; i <= num; i++) {
         container.innerHTML += generateChildBox(i);
         
-        // Attach event listener for automatic "/" insertion on the child's DOB field
+        // Attach event listener for automatic "/" insertion on the child's DOB field.
         let dobInput = document.getElementById(`dob_${i}`);
         dobInput.addEventListener('input', function() {
           let val = this.value;
@@ -201,7 +208,7 @@
           }
         });
         
-        // Attach event listener for the child's "Same as Parent/Guardian Address" checkbox
+        // Attach event listener for the child's "Same as Parent/Guardian Address" checkbox.
         document.getElementById(`sameAddressCheckbox_${i}`)
           .addEventListener('change', function() {
             let childAddr = document.getElementById(`childAddress_${i}`);
@@ -210,8 +217,6 @@
               childAddr.readOnly = true;
             } else {
               childAddr.readOnly = false;
-              // Optionally clear the field:
-              // childAddr.value = '';
             }
           });
       }
@@ -230,10 +235,10 @@
       }
     });
 
-    // Update child boxes when the number of children changes
+    // Update child boxes when the number of children changes.
     document.getElementById('numChildren').addEventListener('input', updateChildBoxes);
 
-    // Generate the initial child box (default number is 1)
+    // Generate the initial child box (default number is 1).
     updateChildBoxes();
   </script>
 </body>
