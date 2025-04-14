@@ -41,6 +41,7 @@
     .row {
       display: flex;
       gap: 1rem;
+      margin-bottom: 1rem;
     }
     .row .field {
       flex: 1;
@@ -83,11 +84,19 @@
       align-items: center;
       gap: 0.5rem;
       white-space: nowrap;
+      margin-bottom: 1rem;
     }
     .checkbox-label {
       display: inline-flex;
       align-items: center;
       margin: 0;
+    }
+    /* Extra spacing for child information fields */
+    .child-box label {
+      margin-bottom: 0.5rem;
+    }
+    .child-box input {
+      margin-bottom: 0.75rem;
     }
   </style>
 </head>
