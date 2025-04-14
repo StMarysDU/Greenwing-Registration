@@ -1,7 +1,7 @@
 function doPost(e) {
   try {
-    // Replace with your actual Google Spreadsheet ID.
-    var ss = SpreadsheetApp.openById('YOUR_SPREADSHEET_ID');
+    // Use your provided Spreadsheet ID
+    var ss = SpreadsheetApp.openById('1xSKngMq9i-XuVvFTkenMvY4O7aX545D3wIWX1--5868');
     var sheet = ss.getSheetByName('Sheet1');
 
     // Capture Parent/Guardian fields.
@@ -22,12 +22,13 @@ function doPost(e) {
                    ", Address: " + (e.parameter["childAddress_" + i] || "") + "\n";
     }
 
-    // Append a row to the spreadsheet.
+    // Append a row to the spreadsheet with a timestamp and the registration details.
     sheet.appendRow([new Date(), parentName, parentAddress, email, phone, numChildren, childData]);
 
-    // Respond with success.
+    // Return a success response.
     return ContentService.createTextOutput(JSON.stringify({ "result": "success" }))
                           .setMimeType(ContentService.MimeType.JSON);
+    
   } catch (error) {
     return ContentService.createTextOutput(JSON.stringify({ "result": "error", "message": error.toString() }))
                           .setMimeType(ContentService.MimeType.JSON);
