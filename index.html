@@ -111,6 +111,22 @@
     <p>Children must be accompanied by an adult.</p>
 
     <form action="#" method="POST">
+      <!-- Parent/Guardian Info Section (moved above Child Information) -->
+      <fieldset class="section-box">
+        <legend>Parent/Guardian Information</legend>
+        <label for="parentName">Name:</label>
+        <input type="text" id="parentName" name="parentName" required>
+
+        <label for="parentAddress">Address:</label>
+        <input type="text" id="parentAddress" name="parentAddress" required>
+
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" required>
+      </fieldset>
+
       <!-- Child Info Section -->
       <fieldset class="section-box">
         <legend>Child Information</legend>
@@ -156,56 +172,10 @@
         <input type="text" id="childAddress" name="childAddress" placeholder="If different than Parent/Guardian">
       </fieldset>
 
-      <!-- Parent/Guardian Info Section -->
-      <fieldset class="section-box">
-        <legend>Parent/Guardian Information</legend>
-        <label for="parentName">Name:</label>
-        <input type="text" id="parentName" name="parentName" required>
-
-        <label for="parentAddress">Address:</label>
-        <input type="text" id="parentAddress" name="parentAddress" required>
-
-        <label for="email">Email Address:</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="phone">Phone Number:</label>
-        <input type="tel" id="phone" name="phone" required>
-      </fieldset>
-
       <button type="submit">Register Now</button>
     </form>
   </div>
 
   <script>
     // Automatically insert "/" after two digits for month in the Date of Birth field.
-    document.getElementById('dob').addEventListener('input', function () {
-      let val = this.value;
-      // If the user types two characters without a slash, append "/".
-      if (val.length === 2 && !val.includes('/')) {
-        this.value = val + '/';
-      }
-    });
-
-    // Update child address field based on the "Same as Parent/Guardian Address" checkbox.
-    document.getElementById('sameAddressCheckbox').addEventListener('change', function () {
-      const parentAddress = document.getElementById('parentAddress').value;
-      const childAddressField = document.getElementById('childAddress');
-      if (this.checked) {
-        childAddressField.value = parentAddress;
-        childAddressField.readOnly = true;
-      } else {
-        childAddressField.value = '';
-        childAddressField.readOnly = false;
-      }
-    });
-
-    // When the parent address changes, update the child address if the checkbox is checked.
-    document.getElementById('parentAddress').addEventListener('input', function () {
-      const sameBox = document.getElementById('sameAddressCheckbox');
-      if (sameBox.checked) {
-        document.getElementById('childAddress').value = this.value;
-      }
-    });
-  </script>
-</body>
-</html>
+    document.getElementById('dob').addEventListener('input', function ()
