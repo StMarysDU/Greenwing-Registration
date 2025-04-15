@@ -2,26 +2,62 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Greenwing Youth Event Registration</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    /* =======================
+       PAGE & BACKGROUND 
+    ======================== */
+    html, body {
       margin: 0;
       padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      /* Use the flyer image as the background using the specified path */
+      background: url('Image/Greenwing flier 2025.png') no-repeat center center;
+      background-size: cover;
+      background-attachment: fixed;
+      /* Fallback solid background color */
       background-color: #f0f8f7;
     }
+
+    /* =======================
+       MAIN CONTAINER 
+    ======================== */
     .container {
-      max-width: 800px;
+      max-width: 900px;
       margin: 2rem auto;
-      background: white;
+      background-color: rgba(255, 255, 255, 0.9); /* Slight opacity for readability */
       padding: 2rem;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    h1, p { text-align: center; }
-    form { display: flex; flex-direction: column; gap: 1rem; }
-    label { font-weight: bold; }
+
+    /* =======================
+       HEADINGS & PARAGRAPHS 
+    ======================== */
+    h1, p {
+      text-align: center;
+      margin: 0.5rem 0;
+    }
+    p {
+      line-height: 1.4;
+    }
+
+    /* =======================
+       FORM & FIELDS 
+    ======================== */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    label {
+      font-weight: bold;
+      margin-bottom: 0.4rem;
+    }
     input, select {
       width: 100%;
       padding: 0.5rem;
@@ -30,8 +66,62 @@
       border: 1px solid #ccc;
       box-sizing: border-box;
     }
-    .row { display: flex; gap: 1rem; margin-bottom: 1rem; }
-    .row .field { flex: 1; display: flex; flex-direction: column; }
+
+    .section-box {
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      padding: 1rem;
+      background-color: #f9fdfc;
+      margin-bottom: 1rem;
+    }
+    fieldset {
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+    legend {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 0.5rem;
+    }
+
+    /* =======================
+       FLEX ROWS 
+    ======================== */
+    .row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .row .field {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* =======================
+       ADDRESS + CHECKBOX 
+    ======================== */
+    .address-group label {
+      margin-bottom: 0.25rem;
+    }
+    .address-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+      margin: 1rem 0;
+    }
+    .checkbox-label {
+      display: inline-flex;
+      align-items: center;
+      margin: 0;
+    }
+
+    /* =======================
+       BUTTONS 
+    ======================== */
     button {
       background-color: #28a745;
       color: white;
@@ -40,64 +130,67 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      align-self: flex-start;
     }
-    button:hover { background-color: #218838; }
-    .section-box {
-      border: 2px solid #ccc;
-      border-radius: 8px;
-      padding: 1rem;
-      background-color: #f9fdfc;
-      margin-bottom: 1rem;
+    button:hover {
+      background-color: #218838;
     }
-    fieldset { border: none; padding: 0; margin: 0; }
-    legend {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #2c3e50;
-      margin-bottom: 0.5rem;
+
+    /* =======================
+       SPACING 
+    ======================== */
+    .child-box label, .parent-box label {
+      margin-bottom: 0.4rem;
     }
-    .address-container {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      white-space: nowrap;
-      margin-bottom: 1rem;
+    .child-box input, .parent-box input {
+      margin-bottom: 0.8rem;
     }
-    .checkbox-label {
-      display: inline-flex;
-      align-items: center;
-      margin: 0;
-    }
-    /* Extra spacing for the child information fields */
-    .child-box label { margin-bottom: 0.5rem; }
-    .child-box input { margin-bottom: 0.75rem; }
-    /* Extra spacing for the parent/guardian info fields */
-    .parent-box label { margin-bottom: 0.5rem; }
-    .parent-box input { margin-bottom: 0.75rem; }
   </style>
 </head>
+
 <body>
   <div class="container">
     <h1>Greenwing Youth Event</h1>
     <p>Hosted by St. Mary's County Ducks Unlimited</p>
-    <p><strong>Date:</strong> June 7th, 8 AM – 2 PM</p>
     <p>
+      <strong>Date:</strong> June 7th, 8 AM – 2 PM<br>
       <strong>Location:</strong> Sanner's Lake Sportsmen's Club<br>
-      21374 Sanner's Lane, Lexington Park, MD 20653
+      21374 Sanner's Lane, Lexington Park, MD 20653<br>
+      <strong>Cost:</strong> $20 per child (includes membership and lunch)
     </p>
-    <p><strong>Cost:</strong> $20 per child (includes membership and lunch)</p>
     <p>Children must be accompanied by an adult.</p>
-    
-    <!-- Form action updated with your web app URL -->
-    <form action="https://script.google.com/macros/s/AKfycbwXHPseCtrPKJUpBveigfzeVTHmYxJ5RepxitYzy_7LZeXg7oyJHMqMoq0CIGgont9CHA/exec" method="POST">
-      <!-- Parent/Guardian Info Section -->
+
+    <!-- The form's submission action is set to "#" for now -->
+    <form action="#" method="POST">
+      <!-- ======================
+           PARENT/GUARDIAN SECTION
+      ======================= -->
       <fieldset class="section-box parent-box">
         <legend>Parent/Guardian Information</legend>
+        
         <label for="parentName">Name:</label>
         <input type="text" id="parentName" name="parentName" required>
 
-        <label for="parentAddress">Address:</label>
-        <input type="text" id="parentAddress" name="parentAddress" required>
+        <!-- Parent Address (More Functional) -->
+        <div class="address-group">
+          <label for="parentStreet">Street Address:</label>
+          <input type="text" id="parentStreet" name="parentStreet" required>
+
+          <div class="row">
+            <div class="field">
+              <label for="parentCity">City:</label>
+              <input type="text" id="parentCity" name="parentCity" required>
+            </div>
+            <div class="field">
+              <label for="parentState">State:</label>
+              <input type="text" id="parentState" name="parentState" required>
+            </div>
+            <div class="field">
+              <label for="parentZip">Zip Code:</label>
+              <input type="text" id="parentZip" name="parentZip" required>
+            </div>
+          </div>
+        </div>
 
         <label for="email">Email Address:</label>
         <input type="email" id="email" name="email" required>
@@ -106,25 +199,72 @@
         <input type="tel" id="phone" name="phone" required>
       </fieldset>
 
-      <!-- Number of Children Field -->
+      <!-- ======================
+           NUMBER OF CHILDREN
+      ======================= -->
       <div class="section-box">
         <label for="numChildren">Number of Children Being Registered:</label>
         <input type="number" id="numChildren" name="numChildren" min="1" value="1" required>
       </div>
 
-      <!-- Container for dynamically generated Child Information Boxes -->
+      <!-- Dynamically Generated Child Boxes -->
       <div id="childContainer"></div>
+
+      <!-- ======================
+           PAYMENT METHOD
+      ======================= -->
+      <div class="section-box">
+        <label for="paymentMethod">Payment Method:</label>
+        <select id="paymentMethod" name="paymentMethod" required>
+          <option value="" disabled selected>Select your payment method</option>
+          <option value="Already Paid">Already Paid</option>
+          <option value="QR Code">Will pay via provided QR code</option>
+          <option value="Check In">Will pay at check in</option>
+        </select>
+      </div>
 
       <button type="submit">Register Now</button>
     </form>
   </div>
 
   <script>
-    // Function to generate the HTML for a single child information box.
+    /* ============================================================
+       HELPER: COPY PARENT ADDRESS INTO CHILD IF CHECKED
+       ============================================================ */
+    function copyParentAddressToChild(i) {
+      // Parent fields
+      const pStreet = document.getElementById('parentStreet').value;
+      const pCity   = document.getElementById('parentCity').value;
+      const pState  = document.getElementById('parentState').value;
+      const pZip    = document.getElementById('parentZip').value;
+
+      // Child fields
+      const cStreet = document.getElementById(`childStreet_${i}`);
+      const cCity   = document.getElementById(`childCity_${i}`);
+      const cState  = document.getElementById(`childState_${i}`);
+      const cZip    = document.getElementById(`childZip_${i}`);
+
+      // Copy parent address to child's address
+      cStreet.value = pStreet;
+      cCity.value   = pCity;
+      cState.value  = pState;
+      cZip.value    = pZip;
+
+      // Make them read-only
+      cStreet.readOnly = true;
+      cCity.readOnly   = true;
+      cState.readOnly  = true;
+      cZip.readOnly    = true;
+    }
+
+    /* ============================================================
+       BUILD THE CHILD INFORMATION FIELDSET
+       ============================================================ */
     function generateChildBox(i) {
       return `
       <fieldset class="section-box child-box">
         <legend>Child Information - Child ${i}</legend>
+        
         <div class="row">
           <div class="field">
             <label for="childFirstName_${i}">First Name:</label>
@@ -135,41 +275,64 @@
             <input type="text" id="childLastName_${i}" name="childLastName_${i}" required>
           </div>
         </div>
+        
         <div class="row">
           <div class="field">
             <label for="dob_${i}">Date of Birth (MM/YYYY):</label>
             <input type="text" id="dob_${i}" name="dob_${i}" placeholder="MM/YYYY"
-              pattern="^(0[1-9]|1[0-2])\\/\\d{4}$" 
-              title="Enter a valid date in MM/YYYY format (e.g., 05/2023)" 
-              maxlength="7" required>
+                   pattern="^(0[1-9]|1[0-2])\\/\\d{4}$"
+                   title="Enter a valid date in MM/YYYY format (e.g., 05/2023)"
+                   maxlength="7" required>
           </div>
           <div class="field">
             <label for="age_${i}">Age:</label>
             <input type="number" id="age_${i}" name="age_${i}" min="1" required>
           </div>
         </div>
+
+        <!-- CHILD ADDRESS -->
+        <div class="address-group">
+          <label for="childStreet_${i}">Street Address:</label>
+          <input type="text" id="childStreet_${i}" name="childStreet_${i}">
+
+          <div class="row">
+            <div class="field">
+              <label for="childCity_${i}">City:</label>
+              <input type="text" id="childCity_${i}" name="childCity_${i}">
+            </div>
+            <div class="field">
+              <label for="childState_${i}">State:</label>
+              <input type="text" id="childState_${i}" name="childState_${i}">
+            </div>
+            <div class="field">
+              <label for="childZip_${i}">Zip Code:</label>
+              <input type="text" id="childZip_${i}" name="childZip_${i}">
+            </div>
+          </div>
+        </div>
+
         <div class="address-container">
-          <label for="childAddress_${i}">Address:</label>
           <label class="checkbox-label" for="sameAddressCheckbox_${i}">
             <input type="checkbox" id="sameAddressCheckbox_${i}" name="sameAddressCheckbox_${i}">
             Same as Parent/Guardian Address
           </label>
         </div>
-        <input type="text" id="childAddress_${i}" name="childAddress_${i}" placeholder="If different than Parent/Guardian">
       </fieldset>
       `;
     }
 
-    // Function to update the child boxes based on the number entered.
+    /* ============================================================
+       RENDER CHILD BOXES BASED ON numChildren
+       ============================================================ */
     function updateChildBoxes() {
       const container = document.getElementById('childContainer');
       const num = parseInt(document.getElementById('numChildren').value) || 0;
-      container.innerHTML = ''; // Clear existing boxes.
+      container.innerHTML = ''; // Clear any existing sections
 
       for (let i = 1; i <= num; i++) {
         container.innerHTML += generateChildBox(i);
-        
-        // Add event listener for auto-inserting "/" into the child's DOB field.
+
+        // Event listener for auto-inserting "/" into the child's DOB field.
         let dobInput = document.getElementById(`dob_${i}`);
         dobInput.addEventListener('input', function() {
           let val = this.value;
@@ -177,39 +340,6 @@
             this.value = val + '/';
           }
         });
-        
-        // Add event listener for the child's "Same as Parent/Guardian Address" checkbox.
-        document.getElementById(`sameAddressCheckbox_${i}`)
-          .addEventListener('change', function() {
-            let childAddr = document.getElementById(`childAddress_${i}`);
-            if (this.checked) {
-              childAddr.value = document.getElementById('parentAddress').value;
-              childAddr.readOnly = true;
-            } else {
-              childAddr.readOnly = false;
-            }
-          });
-      }
-    }
 
-    // When the parent's address changes, update each child's address if its checkbox is checked.
-    document.getElementById('parentAddress').addEventListener('input', function () {
-      const num = parseInt(document.getElementById('numChildren').value) || 0;
-      for (let i = 1; i <= num; i++) {
-        const checkbox = document.getElementById(`sameAddressCheckbox_${i}`);
-        const childAddr = document.getElementById(`childAddress_${i}`);
-        if (checkbox && checkbox.checked) {
-          childAddr.value = this.value;
-          childAddr.readOnly = true;
-        }
-      }
-    });
-
-    // Update child boxes when the number of children is changed.
-    document.getElementById('numChildren').addEventListener('input', updateChildBoxes);
-
-    // Generate the initial child box (default is 1).
-    updateChildBoxes();
-  </script>
-</body>
-</html>
+        // "Same as Parent" checkbox
+        document.getElementById(`sameAddressCheckbox
