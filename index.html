@@ -169,7 +169,7 @@
 </head>
 <body>
   <div class="container">
-    <!-- Top Header Changes -->
+    <!-- Top Header -->
     <h1>Greenwing Youth Event Registration</h1>
     <div class="header-info">
       <p>Hosted by St. Mary's County Ducks Unlimited</p>
@@ -233,18 +233,18 @@
       <!-- Dynamically Generated Child Sections -->
       <div id="childContainer"></div>
 
-      <!-- Payment Method Dropdown -->
+      <!-- Payment Method Dropdown (Updated) -->
       <div class="section-box">
         <label for="paymentMethod">Payment Method:</label>
         <select id="paymentMethod" name="paymentMethod" required>
           <option value="" disabled selected>Select your payment method</option>
-          <option value="Already Paid">Already Paid</option>
-          <option value="QR Code">Will pay via provided QR code</option>
-          <option value="Check In">Will pay at check in</option>
+          <option value="Pay at Check-in">Pay at Check-in</option>
+          <option value="Payed">Payed</option>
+          <option value="Pay Now Via PayPal">Pay Now Via PayPal</option>
         </select>
       </div>
 
-      <!-- PayPal Button -->
+      <!-- PayPal Button (Optional) -->
       <div class="paypal-button">
         <a href="https://paypal.me/stmarysdu" target="_blank">Pay via PayPal</a>
       </div>
@@ -259,13 +259,11 @@
        HELPER: COPY PARENT ADDRESS INTO CHILD IF CHECKED
        ============================================================ */
     function copyParentAddressToChild(i) {
-      // Parent fields
       const pStreet = document.getElementById('parentStreet').value;
       const pCity   = document.getElementById('parentCity').value;
       const pState  = document.getElementById('parentState').value;
       const pZip    = document.getElementById('parentZip').value;
 
-      // Child fields
       const cStreet = document.getElementById(`childStreet_${i}`);
       const cCity   = document.getElementById(`childCity_${i}`);
       const cState  = document.getElementById(`childState_${i}`);
@@ -276,7 +274,6 @@
       cState.value  = pState;
       cZip.value    = pZip;
 
-      // Lock the child address fields
       cStreet.readOnly = true;
       cCity.readOnly   = true;
       cState.readOnly  = true;
@@ -353,12 +350,12 @@
     function updateChildBoxes() {
       const container = document.getElementById('childContainer');
       const num = parseInt(document.getElementById('numChildren').value) || 0;
-      container.innerHTML = ''; // Clear any existing sections
+      container.innerHTML = ''; // Clear existing sections
 
       for (let i = 1; i <= num; i++) {
         container.innerHTML += generateChildBox(i);
 
-        // Attach event listener for auto-inserting "/" in the child's DOB field.
+        // Auto-insert "/" in the child's DOB field.
         let dobInput = document.getElementById(`dob_${i}`);
         dobInput.addEventListener('input', function() {
           let val = this.value;
@@ -367,7 +364,7 @@
           }
         });
 
-        // Attach event listener for the "Child has a different address" checkbox.
+        // "Different Address" checkbox event.
         document.getElementById(`childDiffAddrCheckbox_${i}`).addEventListener('change', function() {
           const addrContainer = document.getElementById(`childAddressContainer_${i}`);
           const street = document.getElementById(`childStreet_${i}`);
@@ -376,7 +373,6 @@
           const zip = document.getElementById(`childZip_${i}`);
           if (this.checked) {
             addrContainer.style.display = "block";
-            // Set these fields as required.
             street.setAttribute("required", "required");
             city.setAttribute("required", "required");
             state.setAttribute("required", "required");
@@ -399,22 +395,12 @@
       updateChildBoxes();
       document.getElementById('numChildren').addEventListener('input', updateChildBoxes);
 
-      // Set up automatic enable/disable of the submit button based on form validity.
       const formElement = document.querySelector('form');
       const submitButton = document.querySelector('button[type="submit"]');
       formElement.addEventListener('input', function() {
-          if (formElement.checkValidity()) {
-              submitButton.disabled = false;
-          } else {
-              submitButton.disabled = true;
-          }
+          submitButton.disabled = !formElement.checkValidity();
       });
-      // Perform an initial validity check.
-      if (formElement.checkValidity()) {
-          submitButton.disabled = false;
-      } else {
-          submitButton.disabled = true;
-      }
+      submitButton.disabled = !formElement.checkValidity();
     });
   </script>
 </body>
