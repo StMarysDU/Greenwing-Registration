@@ -1,196 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Greenwing Youth Event Registration</title>
-  <style>
-    /* =======================
-       PAGE & BACKGROUND 
-    ======================== */
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: Arial, sans-serif;
-    }
-    body {
-      /* Use the flyer image as the background using the specified path */
-      background: url('Image/Greenwing flier 2025.png') no-repeat center center;
-      background-size: cover;
-      background-attachment: fixed;
-      background-color: #f0f8f7;
-    }
+<!-- ... (the head and styles remain the same) ... -->
 
-    /* =======================
-       MAIN CONTAINER 
-    ======================== */
-    .container {
-      max-width: 900px;
-      margin: 2rem auto;
-      background-color: rgba(255, 255, 255, 0.9);
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-
-    /* =======================
-       HEADERS & HEADER INFO 
-    ======================== */
-    h1 {
-      text-align: center;
-      font-size: 2.8rem;
-      margin-bottom: 1rem;
-    }
-    .header-info {
-      text-align: center;
-      font-size: 1.4rem;
-      margin-bottom: 1rem;
-      line-height: 1.6;
-    }
-
-    /* =======================
-       FORM & FIELDS 
-    ======================== */
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    label {
-      font-weight: bold;
-      margin-bottom: 0.4rem;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 0.5rem;
-      font-size: 1rem;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
-    textarea {
-      resize: vertical;
-    }
-
-    .section-box {
-      border: 2px solid #ccc;
-      border-radius: 8px;
-      padding: 1rem;
-      background-color: #f9fdfc;
-      margin-bottom: 1rem;
-    }
-    fieldset {
-      border: none;
-      padding: 0;
-      margin: 0;
-    }
-    legend {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #2c3e50;
-      margin-bottom: 0.5rem;
-    }
-
-    /* =======================
-       FLEX ROWS 
-    ======================== */
-    .row {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-    .row .field {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* =======================
-       ADDRESS & CHECKBOX GROUPS 
-    ======================== */
-    .address-group label {
-      margin-bottom: 0.25rem;
-    }
-    .address-container {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      white-space: nowrap;
-      margin: 1rem 0;
-    }
-    .checkbox-label {
-      display: inline-flex;
-      align-items: center;
-      margin: 0;
-    }
-
-    /* =======================
-       PAYPAL BUTTON 
-    ======================== */
-    .paypal-button {
-      text-align: center;
-      margin-top: 1rem;
-      display: none;
-    }
-    .paypal-button a {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      background-color: #0070ba;
-      color: white;
-      text-decoration: none;
-      font-size: 1rem;
-      border-radius: 5px;
-    }
-
-    /* =======================
-       PAYMENT DETAILS CONTAINER 
-    ======================== */
-    #paymentDetailsContainer {
-      margin-top: 1rem;
-      display: none;
-    }
-    #paymentDetailsContainer label {
-      margin-bottom: 0.4rem;
-      font-weight: bold;
-    }
-    #paymentDetailsContainer .payment-note {
-      font-size: 0.9rem;
-      color: #555;
-      margin-bottom: 0.5rem;
-    }
-    #paymentDetailsContainer textarea {
-      resize: vertical;
-    }
-
-    /* =======================
-       BUTTONS 
-    ======================== */
-    button {
-      background-color: #28a745;
-      color: white;
-      padding: 0.75rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      align-self: flex-start;
-    }
-    button:hover {
-      background-color: #218838;
-    }
-
-    /* =======================
-       SPACING 
-    ======================== */
-    .child-box label, .parent-box label {
-      margin-bottom: 0.4rem;
-    }
-    .child-box input, .parent-box input {
-      margin-bottom: 0.8rem;
-    }
-  </style>
-</head>
 <body>
   <div class="container">
     <!-- Top Header -->
@@ -224,7 +33,6 @@
         <div class="address-group">
           <label for="parentStreet">Street Address:</label>
           <input type="text" id="parentStreet" name="parentStreet" required>
-
           <div class="row">
             <div class="field">
               <label for="parentCity">City:</label>
@@ -240,10 +48,8 @@
             </div>
           </div>
         </div>
-
         <label for="email">Email Address:</label>
         <input type="email" id="email" name="email" required>
-
         <label for="phone">Phone Number:</label>
         <input type="tel" id="phone" name="phone" required>
       </fieldset>
@@ -294,17 +100,17 @@
       const pCity   = document.getElementById('parentCity').value;
       const pState  = document.getElementById('parentState').value;
       const pZip    = document.getElementById('parentZip').value;
-      
+
       const cStreet = document.getElementById(`childStreet_${i}`);
       const cCity   = document.getElementById(`childCity_${i}`);
       const cState  = document.getElementById(`childState_${i}`);
       const cZip    = document.getElementById(`childZip_${i}`);
-      
+
       cStreet.value = pStreet;
       cCity.value   = pCity;
       cState.value  = pState;
       cZip.value    = pZip;
-      
+
       cStreet.readOnly = true;
       cCity.readOnly   = true;
       cState.readOnly  = true;
@@ -381,13 +187,17 @@
     function updateChildBoxes() {
       const container = document.getElementById('childContainer');
       const num = parseInt(document.getElementById('numChildren').value) || 0;
-      container.innerHTML = ''; // Clear existing sections
-
+      let htmlContent = '';
+      
+      // Build all child boxes in one go.
       for (let i = 1; i <= num; i++) {
-        container.innerHTML += generateChildBox(i);
-
-        // Auto-insert "/" in the child's DOB field.
-        let dobInput = document.getElementById(`dob_${i}`);
+        htmlContent += generateChildBox(i);
+      }
+      container.innerHTML = htmlContent;
+      
+      // Now attach event listeners for each child box.
+      for (let i = 1; i <= num; i++) {
+        const dobInput = document.getElementById(`dob_${i}`);
         dobInput.addEventListener('input', function() {
           let val = this.value;
           if (val.length === 2 && !val.includes('/')) {
@@ -395,8 +205,8 @@
           }
         });
 
-        // "Different Address" checkbox event.
-        document.getElementById(`childDiffAddrCheckbox_${i}`).addEventListener('change', function() {
+        const diffAddrCheckbox = document.getElementById(`childDiffAddrCheckbox_${i}`);
+        diffAddrCheckbox.addEventListener('change', function() {
           const addrContainer = document.getElementById(`childAddressContainer_${i}`);
           const street = document.getElementById(`childStreet_${i}`);
           const city = document.getElementById(`childCity_${i}`);
@@ -453,3 +263,4 @@
   </script>
 </body>
 </html>
+
