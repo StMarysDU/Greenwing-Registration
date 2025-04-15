@@ -35,14 +35,18 @@
     }
 
     /* =======================
-       HEADINGS & PARAGRAPHS 
+       HEADERS & HEADER INFO 
     ======================== */
-    h1, p {
+    h1 {
       text-align: center;
-      margin: 0.5rem 0;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
     }
-    p {
-      line-height: 1.4;
+    .header-info {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
     }
 
     /* =======================
@@ -146,27 +150,35 @@
     }
   </style>
 </head>
-
 <body>
   <div class="container">
-    <h1>Greenwing Youth Event</h1>
-    <p>Hosted by St. Mary's County Ducks Unlimited</p>
-    <p>
-      <strong>Date:</strong> June 7th, 8 AM – 2 PM<br>
-      <strong>Location:</strong> Sanner's Lake Sportsmen's Club<br>
-      21374 Sanner's Lane, Lexington Park, MD 20653<br>
-      <strong>Cost:</strong> $20 per child (includes membership and lunch)
-    </p>
-    <p>Children must be accompanied by an adult.</p>
+    <!-- Updated Top Header -->
+    <h1>Greenwing Youth Event Registration</h1>
+    <div class="header-info">
+      <p>Hosted by St. Mary's County Ducks Unlimited</p>
+      <p>
+        <strong>Date:</strong> June 7th, 8 AM – 2 PM<br>
+        <strong>Location:</strong> Sanner's Lake Sportsmen's Club, 21374 Sanner's Lane, Lexington Park, MD 20653<br>
+        <strong>Cost:</strong> $20 per child (includes membership and lunch)
+      </p>
+      <p>Children must be accompanied by an adult.</p>
+    </div>
 
-    <!-- The form is configured to use built-in validation and does not submit externally -->
+    <!-- The form currently submits to "#" -->
     <form action="#" method="POST">
-      <!-- PARENT/GUARDIAN SECTION -->
+      <!-- PARENT/GUARDIAN SECTION with First/Last Name -->
       <fieldset class="section-box parent-box">
         <legend>Parent/Guardian Information</legend>
-        <label for="parentName">Name:</label>
-        <input type="text" id="parentName" name="parentName" required>
-
+        <div class="row">
+          <div class="field">
+            <label for="parentFirstName">First Name:</label>
+            <input type="text" id="parentFirstName" name="parentFirstName" required>
+          </div>
+          <div class="field">
+            <label for="parentLastName">Last Name:</label>
+            <input type="text" id="parentLastName" name="parentLastName" required>
+          </div>
+        </div>
         <!-- Parent Address Fields -->
         <div class="address-group">
           <label for="parentStreet">Street Address:</label>
@@ -201,7 +213,7 @@
         <input type="number" id="numChildren" name="numChildren" min="1" value="1" required>
       </div>
 
-      <!-- Dynamically generated Child Information Sections -->
+      <!-- Dynamically Generated Child Sections -->
       <div id="childContainer"></div>
 
       <!-- PAYMENT METHOD -->
@@ -215,12 +227,40 @@
         </select>
       </div>
 
-      <!-- Submit button initially disabled until form is valid -->
+      <!-- Submit Button (disabled until form is valid) -->
       <button type="submit" disabled>Register Now</button>
     </form>
   </div>
 
   <script>
+    /* ============================================================
+       HELPER: COPY PARENT ADDRESS INTO CHILD IF CHECKED
+       ============================================================ */
+    function copyParentAddressToChild(i) {
+      // Parent fields
+      const pStreet = document.getElementById('parentStreet').value;
+      const pCity   = document.getElementById('parentCity').value;
+      const pState  = document.getElementById('parentState').value;
+      const pZip    = document.getElementById('parentZip').value;
+
+      // Child fields
+      const cStreet = document.getElementById(`childStreet_${i}`);
+      const cCity   = document.getElementById(`childCity_${i}`);
+      const cState  = document.getElementById(`childState_${i}`);
+      const cZip    = document.getElementById(`childZip_${i}`);
+
+      cStreet.value = pStreet;
+      cCity.value   = pCity;
+      cState.value  = pState;
+      cZip.value    = pZip;
+
+      // Lock the child address fields
+      cStreet.readOnly = true;
+      cCity.readOnly   = true;
+      cState.readOnly  = true;
+      cZip.readOnly    = true;
+    }
+
     /* ============================================================
        BUILD THE CHILD INFORMATION FIELDSET
        ============================================================ */
@@ -254,14 +294,13 @@
           </div>
         </div>
         
-        <!-- NEW CHECKBOX FOR DIFFERENT ADDRESS -->
+        <!-- DIFFERENT ADDRESS CHECKBOX AND CONDITIONAL FIELDS -->
         <div class="address-container">
           <label class="checkbox-label" for="childDiffAddrCheckbox_${i}">
             <input type="checkbox" id="childDiffAddrCheckbox_${i}" name="childDiffAddrCheckbox_${i}">
             Child has a different address than Parent/Guardian
           </label>
         </div>
-        <!-- CHILD ADDRESS FIELDS (hidden by default) -->
         <div id="childAddressContainer_${i}" style="display: none;">
           <div class="address-group">
             <label for="childStreet_${i}">Street Address:</label>
@@ -315,7 +354,7 @@
           const zip = document.getElementById(`childZip_${i}`);
           if (this.checked) {
             addrContainer.style.display = "block";
-            // Set these fields as required if the checkbox is checked.
+            // Set these fields as required.
             street.setAttribute("required", "required");
             city.setAttribute("required", "required");
             state.setAttribute("required", "required");
