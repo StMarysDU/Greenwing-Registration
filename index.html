@@ -19,7 +19,7 @@
       background: url('Image/Greenwing flier 2025.png') no-repeat center center;
       background-size: cover;
       background-attachment: fixed;
-      background-color: #f0f8f7; /* Fallback background color */
+      background-color: #f0f8f7;
     }
 
     /* =======================
@@ -152,6 +152,12 @@
     }
     #paymentDetailsContainer label {
       margin-bottom: 0.4rem;
+      font-weight: bold;
+    }
+    #paymentDetailsContainer .payment-note {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 0.5rem;
     }
     #paymentDetailsContainer textarea {
       resize: vertical;
@@ -262,13 +268,14 @@
         </select>
       </div>
 
-      <!-- Payment Details Textarea (for "Payed" option) -->
+      <!-- Payment Details Container (appears when "Payed" is selected) -->
       <div id="paymentDetailsContainer" class="section-box">
         <label for="paymentDetails">Payment Details:</label>
+        <p class="payment-note">Do not include any sensitive payment information</p>
         <textarea id="paymentDetails" name="paymentDetails" rows="3" placeholder="Enter details on how payment was submitted"></textarea>
       </div>
 
-      <!-- PayPal Button -->
+      <!-- PayPal Button (appears only for "Pay Now Via PayPal") -->
       <div class="paypal-button">
         <a href="https://paypal.me/stmarysdu" target="_blank">Pay via PayPal</a>
       </div>
@@ -426,7 +433,7 @@
       });
       submitButton.disabled = !formElement.checkValidity();
 
-      // Payment Method change event to conditionally show/hide PayPal button and Payment Details.
+      // Payment Method change event to conditionally show/hide the PayPal button and Payment Details
       document.getElementById('paymentMethod').addEventListener('change', function() {
         const paypalButtonDiv = document.querySelector('.paypal-button');
         const paymentDetailsDiv = document.getElementById('paymentDetailsContainer');
