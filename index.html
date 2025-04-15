@@ -128,6 +128,7 @@
     .paypal-button {
       text-align: center;
       margin-top: 1rem;
+      display: none; /* Initially hidden */
     }
     .paypal-button a {
       display: inline-block;
@@ -244,7 +245,7 @@
         </select>
       </div>
 
-      <!-- PayPal Button (Optional) -->
+      <!-- PayPal Button (Initially Hidden; shown if Pay Now Via PayPal is selected) -->
       <div class="paypal-button">
         <a href="https://paypal.me/stmarysdu" target="_blank">Pay via PayPal</a>
       </div>
@@ -401,6 +402,16 @@
           submitButton.disabled = !formElement.checkValidity();
       });
       submitButton.disabled = !formElement.checkValidity();
+
+      // Payment Method change event to show/hide the PayPal button.
+      document.getElementById('paymentMethod').addEventListener('change', function() {
+        const paypalButtonDiv = document.querySelector('.paypal-button');
+        if (this.value === "Pay Now Via PayPal") {
+          paypalButtonDiv.style.display = "block";
+        } else {
+          paypalButtonDiv.style.display = "none";
+        }
+      });
     });
   </script>
 </body>
