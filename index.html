@@ -28,7 +28,7 @@
     .container {
       max-width: 900px;
       margin: 2rem auto;
-      background-color: rgba(255, 255, 255, 0.9); /* Slight opacity for readability */
+      background-color: rgba(255, 255, 255, 0.9);
       padding: 2rem;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -39,12 +39,12 @@
     ======================== */
     h1 {
       text-align: center;
-      font-size: 2.8rem; /* Increased font size */
+      font-size: 2.8rem;
       margin-bottom: 1rem;
     }
     .header-info {
       text-align: center;
-      font-size: 1.4rem; /* Increased font size */
+      font-size: 1.4rem;
       margin-bottom: 1rem;
       line-height: 1.6;
     }
@@ -61,13 +61,16 @@
       font-weight: bold;
       margin-bottom: 0.4rem;
     }
-    input, select {
+    input, select, textarea {
       width: 100%;
       padding: 0.5rem;
       font-size: 1rem;
       border-radius: 5px;
       border: 1px solid #ccc;
       box-sizing: border-box;
+    }
+    textarea {
+      resize: vertical;
     }
 
     .section-box {
@@ -138,6 +141,20 @@
       text-decoration: none;
       font-size: 1rem;
       border-radius: 5px;
+    }
+
+    /* =======================
+       PAYMENT DETAILS CONTAINER 
+    ======================== */
+    #paymentDetailsContainer {
+      margin-top: 1rem;
+      display: none; /* Initially hidden */
+    }
+    #paymentDetailsContainer label {
+      margin-bottom: 0.4rem;
+    }
+    #paymentDetailsContainer textarea {
+      resize: vertical;
     }
 
     /* =======================
@@ -234,7 +251,7 @@
       <!-- Dynamically Generated Child Sections -->
       <div id="childContainer"></div>
 
-      <!-- Payment Method Dropdown (Updated) -->
+      <!-- Payment Method Dropdown -->
       <div class="section-box">
         <label for="paymentMethod">Payment Method:</label>
         <select id="paymentMethod" name="paymentMethod" required>
@@ -245,7 +262,13 @@
         </select>
       </div>
 
-      <!-- PayPal Button (Initially Hidden; shown if Pay Now Via PayPal is selected) -->
+      <!-- Payment Details Textarea (for "Payed" option) -->
+      <div id="paymentDetailsContainer" class="section-box">
+        <label for="paymentDetails">Payment Details:</label>
+        <textarea id="paymentDetails" name="paymentDetails" rows="3" placeholder="Enter details on how payment was submitted"></textarea>
+      </div>
+
+      <!-- PayPal Button -->
       <div class="paypal-button">
         <a href="https://paypal.me/stmarysdu" target="_blank">Pay via PayPal</a>
       </div>
@@ -264,17 +287,17 @@
       const pCity   = document.getElementById('parentCity').value;
       const pState  = document.getElementById('parentState').value;
       const pZip    = document.getElementById('parentZip').value;
-
+      
       const cStreet = document.getElementById(`childStreet_${i}`);
       const cCity   = document.getElementById(`childCity_${i}`);
       const cState  = document.getElementById(`childState_${i}`);
       const cZip    = document.getElementById(`childZip_${i}`);
-
+      
       cStreet.value = pStreet;
       cCity.value   = pCity;
       cState.value  = pState;
       cZip.value    = pZip;
-
+      
       cStreet.readOnly = true;
       cCity.readOnly   = true;
       cState.readOnly  = true;
@@ -351,7 +374,7 @@
     function updateChildBoxes() {
       const container = document.getElementById('childContainer');
       const num = parseInt(document.getElementById('numChildren').value) || 0;
-      container.innerHTML = ''; // Clear existing sections
+      container.innerHTML = ''; // Clear any existing sections
 
       for (let i = 1; i <= num; i++) {
         container.innerHTML += generateChildBox(i);
@@ -403,13 +426,20 @@
       });
       submitButton.disabled = !formElement.checkValidity();
 
-      // Payment Method change event to show/hide the PayPal button.
+      // Payment Method change event to conditionally show/hide PayPal button and Payment Details.
       document.getElementById('paymentMethod').addEventListener('change', function() {
         const paypalButtonDiv = document.querySelector('.paypal-button');
+        const paymentDetailsDiv = document.getElementById('paymentDetailsContainer');
+        
         if (this.value === "Pay Now Via PayPal") {
           paypalButtonDiv.style.display = "block";
         } else {
           paypalButtonDiv.style.display = "none";
+        }
+        if (this.value === "Payed") {
+          paymentDetailsDiv.style.display = "block";
+        } else {
+          paymentDetailsDiv.style.display = "none";
         }
       });
     });
