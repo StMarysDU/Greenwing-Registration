@@ -131,7 +131,7 @@
     .paypal-button {
       text-align: center;
       margin-top: 1rem;
-      display: none; /* Initially hidden */
+      display: none;
     }
     .paypal-button a {
       display: inline-block;
@@ -148,7 +148,7 @@
     ======================== */
     #paymentDetailsContainer {
       margin-top: 1rem;
-      display: none; /* Initially hidden */
+      display: none;
     }
     #paymentDetailsContainer label {
       margin-bottom: 0.4rem;
@@ -263,19 +263,19 @@
         <select id="paymentMethod" name="paymentMethod" required>
           <option value="" disabled selected>Select your payment method</option>
           <option value="Pay at Check-in">Pay at Check-in</option>
-          <option value="Payed">Payed</option>
+          <option value="Paid">Paid</option>
           <option value="Pay Now Via PayPal">Pay Now Via PayPal</option>
         </select>
       </div>
 
-      <!-- Payment Details Container (appears when "Payed" is selected) -->
+      <!-- Payment Details Container (for "Paid" option) -->
       <div id="paymentDetailsContainer" class="section-box">
         <label for="paymentDetails">Payment Details:</label>
         <p class="payment-note">Do not include any sensitive payment information</p>
         <textarea id="paymentDetails" name="paymentDetails" rows="3" placeholder="Enter details on how payment was submitted"></textarea>
       </div>
 
-      <!-- PayPal Button (appears only for "Pay Now Via PayPal") -->
+      <!-- PayPal Button (for "Pay Now Via PayPal" option) -->
       <div class="paypal-button">
         <a href="https://paypal.me/stmarysdu" target="_blank">Pay via PayPal</a>
       </div>
@@ -381,7 +381,7 @@
     function updateChildBoxes() {
       const container = document.getElementById('childContainer');
       const num = parseInt(document.getElementById('numChildren').value) || 0;
-      container.innerHTML = ''; // Clear any existing sections
+      container.innerHTML = ''; // Clear existing sections
 
       for (let i = 1; i <= num; i++) {
         container.innerHTML += generateChildBox(i);
@@ -443,7 +443,7 @@
         } else {
           paypalButtonDiv.style.display = "none";
         }
-        if (this.value === "Payed") {
+        if (this.value === "Paid") {
           paymentDetailsDiv.style.display = "block";
         } else {
           paymentDetailsDiv.style.display = "none";
