@@ -39,14 +39,14 @@
     ======================== */
     h1 {
       text-align: center;
-      font-size: 2.5rem;
+      font-size: 2.8rem; /* Increased font size */
       margin-bottom: 1rem;
     }
     .header-info {
       text-align: center;
-      font-size: 1.2rem;
+      font-size: 1.4rem; /* Increased font size */
       margin-bottom: 1rem;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     /* =======================
@@ -123,6 +123,23 @@
     }
 
     /* =======================
+       PAYPAL BUTTON 
+    ======================== */
+    .paypal-button {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .paypal-button a {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: #0070ba;
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      border-radius: 5px;
+    }
+
+    /* =======================
        BUTTONS 
     ======================== */
     button {
@@ -152,7 +169,7 @@
 </head>
 <body>
   <div class="container">
-    <!-- Updated Top Header -->
+    <!-- Top Header Changes -->
     <h1>Greenwing Youth Event Registration</h1>
     <div class="header-info">
       <p>Hosted by St. Mary's County Ducks Unlimited</p>
@@ -164,9 +181,9 @@
       <p>Children must be accompanied by an adult.</p>
     </div>
 
-    <!-- The form currently submits to "#" -->
+    <!-- Registration Form -->
     <form action="#" method="POST">
-      <!-- PARENT/GUARDIAN SECTION with First/Last Name -->
+      <!-- Parent/Guardian Section with First & Last Name -->
       <fieldset class="section-box parent-box">
         <legend>Parent/Guardian Information</legend>
         <div class="row">
@@ -207,7 +224,7 @@
         <input type="tel" id="phone" name="phone" required>
       </fieldset>
 
-      <!-- NUMBER OF CHILDREN -->
+      <!-- Number of Children -->
       <div class="section-box">
         <label for="numChildren">Number of Children Being Registered:</label>
         <input type="number" id="numChildren" name="numChildren" min="1" value="1" required>
@@ -216,7 +233,7 @@
       <!-- Dynamically Generated Child Sections -->
       <div id="childContainer"></div>
 
-      <!-- PAYMENT METHOD -->
+      <!-- Payment Method Dropdown -->
       <div class="section-box">
         <label for="paymentMethod">Payment Method:</label>
         <select id="paymentMethod" name="paymentMethod" required>
@@ -227,7 +244,12 @@
         </select>
       </div>
 
-      <!-- Submit Button (disabled until form is valid) -->
+      <!-- PayPal Button -->
+      <div class="paypal-button">
+        <a href="https://paypal.me/stmarysdu" target="_blank">Pay via PayPal</a>
+      </div>
+
+      <!-- Submit Button -->
       <button type="submit" disabled>Register Now</button>
     </form>
   </div>
@@ -331,7 +353,7 @@
     function updateChildBoxes() {
       const container = document.getElementById('childContainer');
       const num = parseInt(document.getElementById('numChildren').value) || 0;
-      container.innerHTML = ''; // Clear existing sections
+      container.innerHTML = ''; // Clear any existing sections
 
       for (let i = 1; i <= num; i++) {
         container.innerHTML += generateChildBox(i);
