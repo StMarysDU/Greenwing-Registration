@@ -19,8 +19,7 @@
       background: url('Image/Greenwing flier 2025.png') no-repeat center center;
       background-size: cover;
       background-attachment: fixed;
-      /* Fallback solid background color */
-      background-color: #f0f8f7;
+      background-color: #f0f8f7; /* Fallback background color */
     }
 
     /* =======================
@@ -147,7 +146,6 @@
     }
   </style>
 </head>
-
 <body>
   <div class="container">
     <h1>Greenwing Youth Event</h1>
@@ -160,18 +158,15 @@
     </p>
     <p>Children must be accompanied by an adult.</p>
 
-    <!-- The form's submission action is set to "#" for now -->
+    <!-- The form currently submits to "#" -->
     <form action="#" method="POST">
-      <!-- ======================
-           PARENT/GUARDIAN SECTION
-      ======================= -->
+      <!-- PARENT/GUARDIAN SECTION -->
       <fieldset class="section-box parent-box">
         <legend>Parent/Guardian Information</legend>
-        
         <label for="parentName">Name:</label>
         <input type="text" id="parentName" name="parentName" required>
 
-        <!-- Parent Address (More Functional) -->
+        <!-- Updated Address Fields -->
         <div class="address-group">
           <label for="parentStreet">Street Address:</label>
           <input type="text" id="parentStreet" name="parentStreet" required>
@@ -199,20 +194,16 @@
         <input type="tel" id="phone" name="phone" required>
       </fieldset>
 
-      <!-- ======================
-           NUMBER OF CHILDREN
-      ======================= -->
+      <!-- NUMBER OF CHILDREN -->
       <div class="section-box">
         <label for="numChildren">Number of Children Being Registered:</label>
         <input type="number" id="numChildren" name="numChildren" min="1" value="1" required>
       </div>
 
-      <!-- Dynamically Generated Child Boxes -->
+      <!-- Container for dynamically generated Child Information Sections -->
       <div id="childContainer"></div>
 
-      <!-- ======================
-           PAYMENT METHOD
-      ======================= -->
+      <!-- PAYMENT METHOD -->
       <div class="section-box">
         <label for="paymentMethod">Payment Method:</label>
         <select id="paymentMethod" name="paymentMethod" required>
@@ -244,13 +235,12 @@
       const cState  = document.getElementById(`childState_${i}`);
       const cZip    = document.getElementById(`childZip_${i}`);
 
-      // Copy parent address to child's address
       cStreet.value = pStreet;
       cCity.value   = pCity;
       cState.value  = pState;
       cZip.value    = pZip;
 
-      // Make them read-only
+      // Lock the child address fields
       cStreet.readOnly = true;
       cCity.readOnly   = true;
       cState.readOnly  = true;
@@ -332,7 +322,7 @@
       for (let i = 1; i <= num; i++) {
         container.innerHTML += generateChildBox(i);
 
-        // Event listener for auto-inserting "/" into the child's DOB field.
+        // Auto-insert "/" into the child's DOB field.
         let dobInput = document.getElementById(`dob_${i}`);
         dobInput.addEventListener('input', function() {
           let val = this.value;
@@ -341,5 +331,51 @@
           }
         });
 
-        // "Same as Parent" checkbox
-        document.getElementById(`sameAddressCheckbox
+        // "Same as Parent" checkbox event.
+        document.getElementById(`sameAddressCheckbox_${i}`).addEventListener('change', function() {
+          const cStreet = document.getElementById(`childStreet_${i}`);
+          const cCity   = document.getElementById(`childCity_${i}`);
+          const cState  = document.getElementById(`childState_${i}`);
+          const cZip    = document.getElementById(`childZip_${i}`);
+
+          if (this.checked) {
+            copyParentAddressToChild(i);
+          } else {
+            cStreet.readOnly = false;
+            cCity.readOnly   = false;
+            cState.readOnly  = false;
+            cZip.readOnly    = false;
+          }
+        });
+      }
+    }
+
+    /* ============================================================
+       WHEN PARENT ADDRESS CHANGES, SYNC TO CHILD FIELDS IF CHECKED
+       ============================================================ */
+    function parentAddressChangeHandler() {
+      const num = parseInt(document.getElementById('numChildren').value) || 0;
+      for (let i = 1; i <= num; i++) {
+        const checkbox = document.getElementById(`sameAddressCheckbox_${i}`);
+        if (checkbox && checkbox.checked) {
+          copyParentAddressToChild(i);
+        }
+      }
+    }
+
+    // Initialize after the DOM is fully loaded.
+    document.addEventListener("DOMContentLoaded", function() {
+      updateChildBoxes();
+
+      // Listen for changes on numChildren field
+      document.getElementById('numChildren').addEventListener('input', updateChildBoxes);
+
+      // Listen for changes on the parent address fields
+      document.getElementById('parentStreet').addEventListener('input', parentAddressChangeHandler);
+      document.getElementById('parentCity').addEventListener('input', parentAddressChangeHandler);
+      document.getElementById('parentState').addEventListener('input', parentAddressChangeHandler);
+      document.getElementById('parentZip').addEventListener('input', parentAddressChangeHandler);
+    });
+  </script>
+</body>
+</html>
