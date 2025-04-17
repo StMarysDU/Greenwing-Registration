@@ -1,10 +1,11 @@
-<!<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Greenwing Youth Event Registration</title>
   <style>
+    /* PAGE & BACKGROUND */
     html, body { margin:0; padding:0; height:100%; font-family:Arial,sans-serif; }
     body {
       background: url('Image/Greenwing flier 2025.png') no-repeat center center;
@@ -13,31 +14,57 @@
       background-color: #f0f8f7;
     }
     .container {
-      max-width:900px;
-      margin:2rem auto;
-      background:rgba(255,255,255,0.9);
-      padding:2rem;
-      border-radius:10px;
-      box-shadow:0 0 10px rgba(0,0,0,0.1);
+      max-width: 900px;
+      margin: 2rem auto;
+      background-color: rgba(255,255,255,0.9);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     h1 { text-align:center; font-size:2.8rem; margin-bottom:1rem; }
-    .header-info { text-align:center; font-size:1.4rem; line-height:1.6; margin-bottom:1rem; }
+    .header-info { text-align:center; font-size:1.4rem; margin-bottom:1rem; line-height:1.6; }
     form { display:flex; flex-direction:column; gap:1rem; }
     label { font-weight:bold; margin-bottom:0.4rem; }
-    input, select, textarea { width:100%; padding:0.5rem; font-size:1rem; border-radius:5px; border:1px solid #ccc; box-sizing:border-box; }
+    input, select, textarea {
+      width:100%; padding:0.5rem; font-size:1rem;
+      border:1px solid #ccc; border-radius:5px; box-sizing:border-box;
+    }
     textarea { resize:vertical; }
-    .section-box { border:2px solid #ccc; border-radius:8px; padding:1rem; background:#f9fdfc; }
-    .row { display:flex; gap:1rem; margin-bottom:1rem; }
-    .row .field { flex:1; display:flex; flex-direction:column; }
+    .section-box {
+      border:2px solid #ccc; border-radius:8px;
+      padding:1rem; background-color:#f9fdfc;
+    }
+    fieldset { border:none; padding:0; margin:0; }
+    legend {
+      font-size:1.2rem; font-weight:bold; color:#2c3e50;
+      margin-bottom:0.5rem;
+    }
+    .row {
+      display:flex; gap:1rem; margin-bottom:1rem;
+    }
+    .row .field {
+      flex:1; display:flex; flex-direction:column;
+    }
     .address-group { display:flex; flex-direction:column; }
     .address-group > input { margin-bottom:1rem; }
     .address-group .row { display:flex; gap:1rem; }
-    .address-container { display:flex; align-items:center; gap:0.5rem; margin:1rem 0; }
-    .checkbox-label { display:inline-flex; align-items:center; margin:0; }
-    .paypal-button { text-align:center; margin-top:1rem; display:none; }
-    .paypal-button a { padding:0.75rem 1.5rem; background:#0070ba; color:white; border-radius:5px; text-decoration:none; }
+    .address-container {
+      display:flex; align-items:center; gap:0.5rem; margin:1rem 0;
+    }
+    .checkbox-label { display:inline-flex; align-items:center; }
+    .paypal-button {
+      text-align:center; margin-top:1rem; display:none;
+    }
+    .paypal-button a {
+      padding:0.75rem 1.5rem; background:#0070ba;
+      color:white; text-decoration:none; border-radius:5px;
+    }
     #paymentDetailsContainer { display:none; margin-top:1rem; }
-    button { background:#28a745; color:white; padding:0.75rem; font-size:1rem; border:none; border-radius:5px; cursor:pointer; align-self:flex-start; }
+    button {
+      background:#28a745; color:white; padding:0.75rem;
+      font-size:1rem; border:none; border-radius:5px;
+      cursor:pointer; align-self:flex-start;
+    }
     button:hover { background:#218838; }
   </style>
 </head>
@@ -48,14 +75,14 @@
       <p>Hosted by St. Mary's County Ducks Unlimited</p>
       <p>
         <strong>Date:</strong> June 7th, 8 AM – 2 PM<br>
-        <strong>Location:</strong> Sanner's Lake Sportsmen's Club,<br>
+        <strong>Location:</strong> Sanner's Lake Sportsmen's Club,<br>
         21374 Sanner's Lane, Lexington Park, MD 20653<br>
         <strong>Cost:</strong> $20 per child (includes membership & lunch)
       </p>
       <p>Children must be accompanied by an adult.</p>
     </div>
 
-    <!-- Hidden iframe so form POST doesn't navigate away -->
+    <!-- Hidden iframe to swallow the POST response -->
     <iframe name="hidden_iframe" style="display:none;"></iframe>
 
     <form id="regForm"
@@ -63,8 +90,8 @@
           method="post"
           target="hidden_iframe">
 
-      <!-- Parent/Guardian Section -->
-      <fieldset class="section-box">
+      <!-- Parent/Guardian -->
+      <fieldset class="section-box parent-box">
         <legend>Parent/Guardian Information</legend>
         <div class="row">
           <div class="field">
@@ -106,7 +133,7 @@
         <input type="number" id="numChildren" name="numChildren" min="1" value="1" required>
       </div>
 
-      <!-- Dynamic Child Sections -->
+      <!-- Child Sections (rendered by JS) -->
       <div id="childContainer"></div>
 
       <!-- Payment Method -->
@@ -114,16 +141,17 @@
         <label for="paymentMethod">Payment Method:</label>
         <select id="paymentMethod" name="paymentMethod" required>
           <option value="" disabled selected>Select your payment method</option>
-          <option>Pay at Check-in</option>
-          <option>Paid</option>
-          <option>Pay Now Via PayPal</option>
+          <option value="Pay at Check-in">Pay at Check-in</option>
+          <option value="Paid">Paid</option>
+          <option value="Pay Now Via PayPal">Pay Now Via PayPal</option>
         </select>
       </div>
 
       <!-- Payment Details -->
       <div id="paymentDetailsContainer" class="section-box">
         <label for="paymentDetails">Payment Details (no sensitive info):</label>
-        <textarea id="paymentDetails" name="paymentDetails" rows="3" placeholder="How was payment submitted?"></textarea>
+        <textarea id="paymentDetails" name="paymentDetails" rows="3"
+                  placeholder="Enter how payment was submitted"></textarea>
       </div>
 
       <!-- PayPal Button -->
@@ -139,8 +167,8 @@
   <script>
     function generateChildBox(i) {
       return `
-      <fieldset class="section-box">
-        <legend>Child Information – Child ${i}</legend>
+      <fieldset class="section-box child-box">
+        <legend>Child Information – Child ${i}</legend>
         <div class="row">
           <div class="field">
             <label for="childFirstName_${i}">First Name:</label>
@@ -153,8 +181,9 @@
         </div>
         <div class="row">
           <div class="field">
-            <label for="dob_${i}">DOB (MM/YYYY):</label>
-            <input type="text" id="dob_${i}" name="dob_${i}" placeholder="MM/YYYY" pattern="^(0[1-9]|1[0-2])\/\d{4}$" maxlength="7" required>
+            <label for="dob_${i}">DOB (MM/YYYY):</label>
+            <input type="text" id="dob_${i}" name="dob_${i}" placeholder="MM/YYYY"
+                   pattern="^(0[1-9]|1[0-2])\\/\\d{4}$" maxlength="7" required>
           </div>
           <div class="field">
             <label for="age_${i}">Age:</label>
@@ -180,7 +209,7 @@
               <input type="text" id="childState_${i}" name="childState_${i}">
             </div>
             <div class="field">
-              <label for="childZip_${i}">Zip:</label>
+              <label for="childZip_${i}">Zip Code:</label>
               <input type="text" id="childZip_${i}" name="childZip_${i}">
             </div>
           </div>
@@ -235,11 +264,8 @@
           this.value === 'Paid' ? 'block' : 'none';
       });
 
-      // native form POST to Apps Script; no JS in submit handler needed
-      form.addEventListener('submit', e => {
-        e.preventDefault();
-        form.submit();
-      });
+      // The form will POST natively into the hidden iframe,
+      // triggering doPost(e) in your Apps Script.
     });
   </script>
 </body>
