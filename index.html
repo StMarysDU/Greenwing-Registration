@@ -107,11 +107,9 @@
     .address-group > label {
       margin-bottom: 0.4rem;
     }
-    /* Street on its own full-width line */
     .address-group > input {
       margin-bottom: 1rem;
     }
-    /* City/State/Zip in one row */
     .address-group .row {
       display: flex;
       gap: 1rem;
@@ -374,6 +372,26 @@
         document.getElementById('paymentDetailsContainer').style.display =
           this.value === 'Paid' ? 'block' : 'none';
       });
+    });
+  </script>
+
+  <!-- Confirmation snippet -->
+  <script>
+    const form = document.getElementById('regForm');
+    const iframe = document.querySelector('iframe[name="hidden_iframe"]');
+    let expectResponse = false;
+
+    form.addEventListener('submit', () => {
+      expectResponse = true;
+    });
+
+    iframe.addEventListener('load', () => {
+      if (expectResponse) {
+        alert('Thank you! Your registration has been received.');
+        form.reset();
+        updateChildBoxes();
+        expectResponse = false;
+      }
     });
   </script>
 </body>
