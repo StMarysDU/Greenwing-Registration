@@ -1,22 +1,24 @@
 // Code.gs
 
-// Your spreadsheet ID
+// Your Google Sheet ID
 const SHEET_ID = '1T1KjYEGFndHQR1Od8lu6gNsU1su_vUruuhR09x2R2uw';
-// Tab name for responses
-const TAB_NAME = 'Form Responses';
+// The name of the tab where responses will go
+const TAB_NAME  = 'Form Responses';
 
 /**
- * Receives form POSTs from GitHub Pages.
+ * This runs whenever your GitHub form POSTS to the Web App URL.
  */
 function doPost(e) {
+  // e.parameter is a flat map of name→value from the form
   submitRegistration(e.parameter);
+  // Return a simple text response so the hidden iframe doesn't error out
   return ContentService
     .createTextOutput('OK')
     .setMimeType(ContentService.MimeType.TEXT);
 }
 
 /**
- * Appends a row to the sheet based on the flat formData map.
+ * Takes the flat formData map and appends a row in the sheet.
  */
 function submitRegistration(formData) {
   const ss    = SpreadsheetApp.openById(SHEET_ID);
@@ -25,13 +27,14 @@ function submitRegistration(formData) {
 
   const numChildren = parseInt(formData.numChildren, 10) || 0;
 
-  // Write headers if this is the first row
+  // Write headers if this is the first submission
   if (sheet.getLastRow() === 0) {
     const headers = [
       'Timestamp',
       'parentFirstName','parentLastName',
       'parentStreet','parentCity','parentState','parentZip',
-      'email','phone','numChildren'
+      'email','phone',
+      'numChildren'
     ];
     for (let i = 1; i <= numChildren; i++) {
       headers.push(
@@ -49,7 +52,7 @@ function submitRegistration(formData) {
     sheet.appendRow(headers);
   }
 
-  // Build the row data
+  // Build the row values
   const row = [
     new Date(),
     formData.parentFirstName, formData.parentLastName,
