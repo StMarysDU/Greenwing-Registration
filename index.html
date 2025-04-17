@@ -14,12 +14,9 @@
       background-color: #f0f8f7;
     }
     .container {
-      max-width:900px;
-      margin:2rem auto;
-      background:rgba(255,255,255,0.9);
-      padding:2rem;
-      border-radius:10px;
-      box-shadow:0 0 10px rgba(0,0,0,0.1);
+      max-width:900px; margin:2rem auto;
+      background:rgba(255,255,255,0.9); padding:2rem;
+      border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1);
     }
     h1 { text-align:center; font-size:2.8rem; margin-bottom:1rem; }
     .header-info { text-align:center; font-size:1.4rem; line-height:1.6; margin-bottom:1rem; }
@@ -41,18 +38,23 @@
     }
     .row { display:flex; gap:1rem; margin-bottom:1rem; }
     .row .field { flex:1; display:flex; flex-direction:column; }
-    /* ADDRESS FIX */
+
+    /* ADDRESS GROUP FIX */
     .address-group { display:flex; flex-direction:column; margin-bottom:1rem; }
     .address-group > label { margin-bottom:0.4rem; }
     .address-group > input { margin-bottom:1rem; }
     .address-group .row { display:flex; gap:1rem; }
+
     .address-container { display:flex; align-items:center; gap:0.5rem; margin:1rem 0; }
+    .checkbox-label { display:inline-flex; align-items:center; }
+
     .paypal-button { text-align:center; margin-top:1rem; display:none; }
     .paypal-button a {
-      padding:0.75rem 1.5rem; background:#0070ba; color:white;
-      text-decoration:none; border-radius:5px;
+      padding:0.75rem 1.5rem; background:#0070ba;
+      color:white; text-decoration:none; border-radius:5px;
     }
     #paymentDetailsContainer { display:none; margin-top:1rem; }
+
     button {
       background:#28a745; color:white; padding:0.75rem;
       font-size:1rem; border:none; border-radius:5px;
@@ -75,12 +77,16 @@
       <p>Children must be accompanied by an adult.</p>
     </div>
 
+    <!-- hidden iframe so form POST doesn’t navigate away -->
+    <iframe name="hidden_iframe" style="display:none;"></iframe>
+
     <form id="regForm"
           action="https://script.google.com/macros/s/AKfycbz61Uqu5YYPyBbZmG7Q2EOlA6FDrJ60taXav47UmxcULoJ1cedwxgKhB762Cy9xiYkZDQ/exec"
-          method="post">
-      
+          method="post"
+          target="hidden_iframe">
+
       <!-- Parent/Guardian -->
-      <fieldset class="section-box">
+      <fieldset class="section-box parent-box">
         <legend>Parent/Guardian Information</legend>
         <div class="row">
           <div class="field">
@@ -139,8 +145,7 @@
       <!-- Payment Details -->
       <div id="paymentDetailsContainer" class="section-box">
         <label for="paymentDetails">Payment Details (no sensitive info):</label>
-        <textarea id="paymentDetails" name="paymentDetails" rows="3"
-                  placeholder="How was payment submitted?"></textarea>
+        <textarea id="paymentDetails" name="paymentDetails" rows="3" placeholder="How was payment submitted?"></textarea>
       </div>
 
       <!-- PayPal Button -->
@@ -154,7 +159,6 @@
   </div>
 
   <script>
-    // Build one child section
     function generateChildBox(i) {
       return `
       <fieldset class="section-box child-box">
@@ -171,7 +175,7 @@
         </div>
         <div class="row">
           <div class="field">
-            <label for="dob_${i}">DOB (MM/YYYY):</label>
+            <label for="dob_${i}">DOB (MM/YYYY):</label>
             <input type="text" id="dob_${i}" name="dob_${i}" placeholder="MM/YYYY"
                    pattern="^(0[1-9]|1[0-2])\\/\\d{4}$" maxlength="7" required>
           </div>
@@ -215,13 +219,11 @@
       container.innerHTML = html;
 
       for (let i = 1; i <= num; i++) {
-        // Auto slash for DOB
         document.getElementById(`dob_${i}`).addEventListener('input', e => {
           if (e.target.value.length === 2 && !e.target.value.includes('/')) {
             e.target.value += '/';
           }
         });
-        // Toggle child address fields
         const chk = document.getElementById(`childDiffAddrCheckbox_${i}`);
         chk.addEventListener('change', () => {
           const div = document.getElementById(`childAddressContainer_${i}`);
@@ -240,49 +242,34 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       updateChildBoxes();
-      document.getElementById('numChildren')
-        .addEventListener('input', updateChildBoxes);
+      document.getElementById('numChildren').addEventListener('input', updateChildBoxes);
 
       const form = document.getElementById('regForm');
       const submitBtn = form.querySelector('button[type="submit"]');
-      // Enable submit only when valid
       form.addEventListener('input', () => {
         submitBtn.disabled = !form.checkValidity();
       });
       submitBtn.disabled = !form.checkValidity();
 
-      // Toggle PayPal / payment details
-      document.getElementById('paymentMethod')
-        .addEventListener('change', function() {
-          document.querySelector('.paypal-button').style.display =
-            this.value==='Pay Now Via PayPal'?'block':'none';
-          document.getElementById('paymentDetailsContainer').style.display =
-            this.value==='Paid'?'block':'none';
-        });
+      document.getElementById('paymentMethod').addEventListener('change', function() {
+        document.querySelector('.paypal-button').style.display =
+          this.value === 'Pay Now Via PayPal' ? 'block' : 'none';
+        document.getElementById('paymentDetailsContainer').style.display =
+          this.value === 'Paid' ? 'block' : 'none';
+      });
 
-      // INTERCEPT submission: send via fetch, show confirmation
-      form.addEventListener('submit', e => {
-        e.preventDefault();
-        const url = form.action;
-        fetch(url, {
-          method: 'POST',
-          body: new FormData(form)
-        })
-        .then(res => res.text())
-        .then(txt => {
-          if (txt.trim() === 'OK') {
+      // Confirmation on hidden-iframe load
+      let expecting = false;
+      form.addEventListener('submit', () => { expecting = true; });
+      document.querySelector('iframe[name="hidden_iframe"]')
+        .addEventListener('load', () => {
+          if (expecting) {
             alert('Thank you! Your registration has been received.');
             form.reset();
             updateChildBoxes();
-          } else {
-            alert('Submission failed: ' + txt);
+            expecting = false;
           }
-        })
-        .catch(err => {
-          console.error(err);
-          alert('Error submitting form. Please try again.');
         });
-      });
     });
   </script>
 </body>
