@@ -1,19 +1,11 @@
-<!DOCTYPE html>
+<!<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Greenwing Youth Event Registration</title>
   <style>
-    /* =======================
-       PAGE & BACKGROUND 
-    ======================== */
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: Arial, sans-serif;
-    }
+    html, body { margin:0; padding:0; height:100%; font-family:Arial,sans-serif; }
     body {
       background: url('Image/Greenwing flier 2025.png') no-repeat center center;
       background-size: cover;
@@ -21,163 +13,58 @@
       background-color: #f0f8f7;
     }
     .container {
-      max-width: 900px;
-      margin: 2rem auto;
-      background-color: rgba(255, 255, 255, 0.9);
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width:900px;
+      margin:2rem auto;
+      background:rgba(255,255,255,0.9);
+      padding:2rem;
+      border-radius:10px;
+      box-shadow:0 0 10px rgba(0,0,0,0.1);
     }
-    /* =======================
-       HEADERS & HEADER INFO 
-    ======================== */
-    h1 {
-      text-align: center;
-      font-size: 2.8rem;
-      margin-bottom: 1rem;
-    }
-    .header-info {
-      text-align: center;
-      font-size: 1.4rem;
-      margin-bottom: 1rem;
-      line-height: 1.6;
-    }
-    /* =======================
-       FORM & FIELDS 
-    ======================== */
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    label {
-      font-weight: bold;
-      margin-bottom: 0.4rem;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 0.5rem;
-      font-size: 1rem;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
-    textarea {
-      resize: vertical;
-    }
-    .section-box {
-      border: 2px solid #ccc;
-      border-radius: 8px;
-      padding: 1rem;
-      background-color: #f9fdfc;
-      margin-bottom: 1rem;
-    }
-    fieldset {
-      border: none;
-      padding: 0;
-      margin: 0;
-    }
-    legend {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #2c3e50;
-      margin-bottom: 0.5rem;
-    }
-    .row {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-    .row .field {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    .address-group label {
-      margin-bottom: 0.25rem;
-    }
-    .address-container {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      white-space: nowrap;
-      margin: 1rem 0;
-    }
-    .checkbox-label {
-      display: inline-flex;
-      align-items: center;
-      margin: 0;
-    }
-    /* PayPal button is initially hidden */
-    .paypal-button {
-      text-align: center;
-      margin-top: 1rem;
-      display: none;
-    }
-    .paypal-button a {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      background-color: #0070ba;
-      color: white;
-      text-decoration: none;
-      font-size: 1rem;
-      border-radius: 5px;
-    }
-    /* Payment Details container */
-    #paymentDetailsContainer {
-      margin-top: 1rem;
-      display: none;
-    }
-    #paymentDetailsContainer label {
-      margin-bottom: 0.4rem;
-      font-weight: bold;
-    }
-    #paymentDetailsContainer .payment-note {
-      font-size: 0.9rem;
-      color: #555;
-      margin-bottom: 0.5rem;
-    }
-    /* Button styles */
-    button {
-      background-color: #28a745;
-      color: white;
-      padding: 0.75rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      align-self: flex-start;
-    }
-    button:hover {
-      background-color: #218838;
-    }
-    /* Spacing for form controls */
-    .child-box label, .parent-box label {
-      margin-bottom: 0.4rem;
-    }
-    .child-box input, .parent-box input {
-      margin-bottom: 0.8rem;
-    }
+    h1 { text-align:center; font-size:2.8rem; margin-bottom:1rem; }
+    .header-info { text-align:center; font-size:1.4rem; line-height:1.6; margin-bottom:1rem; }
+    form { display:flex; flex-direction:column; gap:1rem; }
+    label { font-weight:bold; margin-bottom:0.4rem; }
+    input, select, textarea { width:100%; padding:0.5rem; font-size:1rem; border-radius:5px; border:1px solid #ccc; box-sizing:border-box; }
+    textarea { resize:vertical; }
+    .section-box { border:2px solid #ccc; border-radius:8px; padding:1rem; background:#f9fdfc; }
+    .row { display:flex; gap:1rem; margin-bottom:1rem; }
+    .row .field { flex:1; display:flex; flex-direction:column; }
+    .address-group { display:flex; flex-direction:column; }
+    .address-group > input { margin-bottom:1rem; }
+    .address-group .row { display:flex; gap:1rem; }
+    .address-container { display:flex; align-items:center; gap:0.5rem; margin:1rem 0; }
+    .checkbox-label { display:inline-flex; align-items:center; margin:0; }
+    .paypal-button { text-align:center; margin-top:1rem; display:none; }
+    .paypal-button a { padding:0.75rem 1.5rem; background:#0070ba; color:white; border-radius:5px; text-decoration:none; }
+    #paymentDetailsContainer { display:none; margin-top:1rem; }
+    button { background:#28a745; color:white; padding:0.75rem; font-size:1rem; border:none; border-radius:5px; cursor:pointer; align-self:flex-start; }
+    button:hover { background:#218838; }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Top Header -->
     <h1>Greenwing Youth Event Registration</h1>
     <div class="header-info">
       <p>Hosted by St. Mary's County Ducks Unlimited</p>
       <p>
-        <strong>Date:</strong> June 7th, 8 AM – 2 PM<br>
-        <strong>Location:</strong> Sanner's Lake Sportsmen's Club, 21374 Sanner's Lane, Lexington Park, MD 20653<br>
-        <strong>Cost:</strong> $20 per child (includes membership and lunch)
+        <strong>Date:</strong> June 7th, 8 AM – 2 PM<br>
+        <strong>Location:</strong> Sanner's Lake Sportsmen's Club,<br>
+        21374 Sanner's Lane, Lexington Park, MD 20653<br>
+        <strong>Cost:</strong> $20 per child (includes membership & lunch)
       </p>
       <p>Children must be accompanied by an adult.</p>
     </div>
 
-    <!-- Registration Form -->
-    <form action="#" method="POST">
-      <!-- Parent/Guardian Section with First & Last Name -->
-      <fieldset class="section-box parent-box">
+    <!-- Hidden iframe so form POST doesn't navigate away -->
+    <iframe name="hidden_iframe" style="display:none;"></iframe>
+
+    <form id="regForm"
+          action="https://script.google.com/macros/s/AKfycbz61Uqu5YYPyBbZmG7Q2EOlA6FDrJ60taXav47UmxcULoJ1cedwxgKhB762Cy9xiYkZDQ/exec"
+          method="post"
+          target="hidden_iframe">
+
+      <!-- Parent/Guardian Section -->
+      <fieldset class="section-box">
         <legend>Parent/Guardian Information</legend>
         <div class="row">
           <div class="field">
@@ -189,7 +76,6 @@
             <input type="text" id="parentLastName" name="parentLastName" required>
           </div>
         </div>
-        <!-- Parent Address Fields -->
         <div class="address-group">
           <label for="parentStreet">Street Address:</label>
           <input type="text" id="parentStreet" name="parentStreet" required>
@@ -220,66 +106,41 @@
         <input type="number" id="numChildren" name="numChildren" min="1" value="1" required>
       </div>
 
-      <!-- Dynamically Generated Child Sections -->
+      <!-- Dynamic Child Sections -->
       <div id="childContainer"></div>
 
-      <!-- Payment Method Dropdown -->
+      <!-- Payment Method -->
       <div class="section-box">
         <label for="paymentMethod">Payment Method:</label>
         <select id="paymentMethod" name="paymentMethod" required>
           <option value="" disabled selected>Select your payment method</option>
-          <option value="Pay at Check-in">Pay at Check-in</option>
-          <option value="Paid">Paid</option>
-          <option value="Pay Now Via PayPal">Pay Now Via PayPal</option>
+          <option>Pay at Check-in</option>
+          <option>Paid</option>
+          <option>Pay Now Via PayPal</option>
         </select>
       </div>
 
-      <!-- Payment Details Container (appears when "Paid" is selected) -->
+      <!-- Payment Details -->
       <div id="paymentDetailsContainer" class="section-box">
-        <label for="paymentDetails">Payment Details (Do not include any sensitive payment information):</label>
-        <textarea id="paymentDetails" name="paymentDetails" rows="3" placeholder="Enter details on how payment was submitted"></textarea>
+        <label for="paymentDetails">Payment Details (no sensitive info):</label>
+        <textarea id="paymentDetails" name="paymentDetails" rows="3" placeholder="How was payment submitted?"></textarea>
       </div>
 
-      <!-- PayPal Button (appears only when "Pay Now Via PayPal" is selected) -->
+      <!-- PayPal Button -->
       <div class="paypal-button">
         <a href="https://paypal.me/stmarysdu" target="_blank">Pay via PayPal</a>
       </div>
 
-      <!-- Submit Button -->
+      <!-- Submit -->
       <button type="submit" disabled>Register Now</button>
     </form>
   </div>
 
   <script>
-    // Helper function: Copy Parent Address into Child fields
-    function copyParentAddressToChild(i) {
-      const pStreet = document.getElementById('parentStreet').value;
-      const pCity   = document.getElementById('parentCity').value;
-      const pState  = document.getElementById('parentState').value;
-      const pZip    = document.getElementById('parentZip').value;
-      
-      const cStreet = document.getElementById(`childStreet_${i}`);
-      const cCity   = document.getElementById(`childCity_${i}`);
-      const cState  = document.getElementById(`childState_${i}`);
-      const cZip    = document.getElementById(`childZip_${i}`);
-      
-      cStreet.value = pStreet;
-      cCity.value   = pCity;
-      cState.value  = pState;
-      cZip.value    = pZip;
-      
-      cStreet.readOnly = true;
-      cCity.readOnly   = true;
-      cState.readOnly  = true;
-      cZip.readOnly    = true;
-    }
-    
-    // Function to build HTML for a single child box
     function generateChildBox(i) {
       return `
-      <fieldset class="section-box child-box">
-        <legend>Child Information - Child ${i}</legend>
-        
+      <fieldset class="section-box">
+        <legend>Child Information – Child ${i}</legend>
         <div class="row">
           <div class="field">
             <label for="childFirstName_${i}">First Name:</label>
@@ -290,124 +151,94 @@
             <input type="text" id="childLastName_${i}" name="childLastName_${i}" required>
           </div>
         </div>
-        
         <div class="row">
           <div class="field">
-            <label for="dob_${i}">Date of Birth (MM/YYYY):</label>
-            <input type="text" id="dob_${i}" name="dob_${i}" placeholder="MM/YYYY"
-                   pattern="^(0[1-9]|1[0-2])\\/\\d{4}$"
-                   title="Enter a valid date in MM/YYYY format (e.g., 05/2023)"
-                   maxlength="7" required>
+            <label for="dob_${i}">DOB (MM/YYYY):</label>
+            <input type="text" id="dob_${i}" name="dob_${i}" placeholder="MM/YYYY" pattern="^(0[1-9]|1[0-2])\/\d{4}$" maxlength="7" required>
           </div>
           <div class="field">
             <label for="age_${i}">Age:</label>
             <input type="number" id="age_${i}" name="age_${i}" min="1" required>
           </div>
         </div>
-        
-        <!-- Checkbox for different address; address fields will be conditionally shown -->
         <div class="address-container">
           <label class="checkbox-label" for="childDiffAddrCheckbox_${i}">
             <input type="checkbox" id="childDiffAddrCheckbox_${i}" name="childDiffAddrCheckbox_${i}">
-            Child has a different address than Parent/Guardian
+            Child has a different address
           </label>
         </div>
-        <div id="childAddressContainer_${i}" style="display: none;">
-          <div class="address-group">
-            <label for="childStreet_${i}">Street Address:</label>
-            <input type="text" id="childStreet_${i}" name="childStreet_${i}">
-            <div class="row">
-              <div class="field">
-                <label for="childCity_${i}">City:</label>
-                <input type="text" id="childCity_${i}" name="childCity_${i}">
-              </div>
-              <div class="field">
-                <label for="childState_${i}">State:</label>
-                <input type="text" id="childState_${i}" name="childState_${i}">
-              </div>
-              <div class="field">
-                <label for="childZip_${i}">Zip Code:</label>
-                <input type="text" id="childZip_${i}" name="childZip_${i}">
-              </div>
+        <div id="childAddressContainer_${i}" style="display:none;" class="address-group">
+          <label for="childStreet_${i}">Street Address:</label>
+          <input type="text" id="childStreet_${i}" name="childStreet_${i}">
+          <div class="row">
+            <div class="field">
+              <label for="childCity_${i}">City:</label>
+              <input type="text" id="childCity_${i}" name="childCity_${i}">
+            </div>
+            <div class="field">
+              <label for="childState_${i}">State:</label>
+              <input type="text" id="childState_${i}" name="childState_${i}">
+            </div>
+            <div class="field">
+              <label for="childZip_${i}">Zip:</label>
+              <input type="text" id="childZip_${i}" name="childZip_${i}">
             </div>
           </div>
         </div>
-      </fieldset>
-      `;
+      </fieldset>`;
     }
-    
-    // Render child boxes by first building an HTML string and then attaching event listeners
+
     function updateChildBoxes() {
       const container = document.getElementById('childContainer');
-      const num = parseInt(document.getElementById('numChildren').value) || 0;
-      let htmlContent = '';
-      
+      const num = Number(document.getElementById('numChildren').value) || 0;
+      let html = '';
+      for (let i = 1; i <= num; i++) html += generateChildBox(i);
+      container.innerHTML = html;
+
       for (let i = 1; i <= num; i++) {
-        htmlContent += generateChildBox(i);
-      }
-      container.innerHTML = htmlContent;
-      
-      // Attach event listeners to each generated child box
-      for (let i = 1; i <= num; i++) {
-        const dobInput = document.getElementById(`dob_${i}`);
-        dobInput.addEventListener('input', function() {
-          let val = this.value;
-          if (val.length === 2 && !val.includes('/')) {
-            this.value = val + '/';
+        document.getElementById(`dob_${i}`).addEventListener('input', e => {
+          if (e.target.value.length === 2 && !e.target.value.includes('/')) {
+            e.target.value += '/';
           }
         });
-        
-        const diffAddrCheckbox = document.getElementById(`childDiffAddrCheckbox_${i}`);
-        diffAddrCheckbox.addEventListener('change', function() {
-          const addrContainer = document.getElementById(`childAddressContainer_${i}`);
-          const street = document.getElementById(`childStreet_${i}`);
-          const city = document.getElementById(`childCity_${i}`);
-          const state = document.getElementById(`childState_${i}`);
-          const zip = document.getElementById(`childZip_${i}`);
-          if (this.checked) {
-            addrContainer.style.display = "block";
-            street.setAttribute("required", "required");
-            city.setAttribute("required", "required");
-            state.setAttribute("required", "required");
-            zip.setAttribute("required", "required");
+        const chk = document.getElementById(`childDiffAddrCheckbox_${i}`);
+        chk.addEventListener('change', () => {
+          const div = document.getElementById(`childAddressContainer_${i}`);
+          const fields = ['Street','City','State','Zip']
+            .map(f => document.getElementById(`child${f}_${i}`));
+          if (chk.checked) {
+            div.style.display = 'block';
+            fields.forEach(el => el.setAttribute('required',''));
           } else {
-            addrContainer.style.display = "none";
-            street.removeAttribute("required");
-            city.removeAttribute("required");
-            state.removeAttribute("required");
-            zip.removeAttribute("required");
+            div.style.display = 'none';
+            fields.forEach(el => el.removeAttribute('required'));
           }
         });
       }
     }
-    
-    // Initialization after DOM loads & form validation
-    document.addEventListener("DOMContentLoaded", function() {
+
+    document.addEventListener('DOMContentLoaded', () => {
       updateChildBoxes();
       document.getElementById('numChildren').addEventListener('input', updateChildBoxes);
-    
-      const formElement = document.querySelector('form');
-      const submitButton = document.querySelector('button[type="submit"]');
-      formElement.addEventListener('input', function() {
-          submitButton.disabled = !formElement.checkValidity();
+
+      const form = document.getElementById('regForm');
+      const submitBtn = form.querySelector('button[type="submit"]');
+      form.addEventListener('input', () => {
+        submitBtn.disabled = !form.checkValidity();
       });
-      submitButton.disabled = !formElement.checkValidity();
-    
-      // Payment Method change event to conditionally show/hide PayPal button and Payment Details container
+      submitBtn.disabled = !form.checkValidity();
+
       document.getElementById('paymentMethod').addEventListener('change', function() {
-        const paypalButtonDiv = document.querySelector('.paypal-button');
-        const paymentDetailsDiv = document.getElementById('paymentDetailsContainer');
-        
-        if (this.value === "Pay Now Via PayPal") {
-          paypalButtonDiv.style.display = "block";
-        } else {
-          paypalButtonDiv.style.display = "none";
-        }
-        if (this.value === "Paid") {
-          paymentDetailsDiv.style.display = "block";
-        } else {
-          paymentDetailsDiv.style.display = "none";
-        }
+        document.querySelector('.paypal-button').style.display =
+          this.value === 'Pay Now Via PayPal' ? 'block' : 'none';
+        document.getElementById('paymentDetailsContainer').style.display =
+          this.value === 'Paid' ? 'block' : 'none';
+      });
+
+      // native form POST to Apps Script; no JS in submit handler needed
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        form.submit();
       });
     });
   </script>
