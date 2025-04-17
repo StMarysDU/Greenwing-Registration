@@ -1,36 +1,79 @@
+// Code.gs
+
+// Your spreadsheet ID
+const SHEET_ID = '1T1KjYEGFndHQR1Od8lu6gNsU1su_vUruuhR09x2R2uw';
+// Tab name for responses
+const TAB_NAME = 'Form Responses';
+
+/**
+ * Receives form POSTs from GitHub Pages.
+ */
 function doPost(e) {
-  try {
-    // Use your provided Spreadsheet ID
-    var ss = SpreadsheetApp.openById('12MTgrkUEAQDwQyko3jYA-8y8VwMUFJb38MCHAJmEIjE');
-    var sheet = ss.getSheetByName('Sheet1');
+  submitRegistration(e.parameter);
+  return ContentService
+    .createTextOutput('OK')
+    .setMimeType(ContentService.MimeType.TEXT);
+}
 
-    // Capture Parent/Guardian fields.
-    var parentName = e.parameter.parentName;
-    var parentAddress = e.parameter.parentAddress;
-    var email = e.parameter.email;
-    var phone = e.parameter.phone;
-    var numChildren = e.parameter.numChildren;
+/**
+ * Appends a row to the sheet based on the flat formData map.
+ */
+function submitRegistration(formData) {
+  const ss    = SpreadsheetApp.openById(SHEET_ID);
+  let   sheet = ss.getSheetByName(TAB_NAME);
+  if (!sheet) sheet = ss.insertSheet(TAB_NAME);
 
-    // Collect dynamic child information.
-    var childData = "";
-    for (var i = 1; i <= parseInt(numChildren); i++) {
-      childData += "Child " + i + ": " +
-                   (e.parameter["childFirstName_" + i] || "") + " " +
-                   (e.parameter["childLastName_" + i] || "") +
-                   ", DOB: " + (e.parameter["dob_" + i] || "") +
-                   ", Age: " + (e.parameter["age_" + i] || "") +
-                   ", Address: " + (e.parameter["childAddress_" + i] || "") + "\n";
+  const numChildren = parseInt(formData.numChildren, 10) || 0;
+
+  // Write headers if this is the first row
+  if (sheet.getLastRow() === 0) {
+    const headers = [
+      'Timestamp',
+      'parentFirstName','parentLastName',
+      'parentStreet','parentCity','parentState','parentZip',
+      'email','phone','numChildren'
+    ];
+    for (let i = 1; i <= numChildren; i++) {
+      headers.push(
+        `childFirstName_${i}`,
+        `childLastName_${i}`,
+        `dob_${i}`,
+        `age_${i}`,
+        `childStreet_${i}`,
+        `childCity_${i}`,
+        `childState_${i}`,
+        `childZip_${i}`
+      );
     }
-
-    // Append a row to the spreadsheet with a timestamp and the registration details.
-    sheet.appendRow([new Date(), parentName, parentAddress, email, phone, numChildren, childData]);
-
-    // Return a success response.
-    return ContentService.createTextOutput(JSON.stringify({ "result": "success" }))
-                          .setMimeType(ContentService.MimeType.JSON);
-    
-  } catch (error) {
-    return ContentService.createTextOutput(JSON.stringify({ "result": "error", "message": error.toString() }))
-                          .setMimeType(ContentService.MimeType.JSON);
+    headers.push('paymentMethod','paymentDetails');
+    sheet.appendRow(headers);
   }
+
+  // Build the row data
+  const row = [
+    new Date(),
+    formData.parentFirstName, formData.parentLastName,
+    formData.parentStreet,    formData.parentCity,
+    formData.parentState,     formData.parentZip,
+    formData.email,           formData.phone,
+    formData.numChildren
+  ];
+  for (let i = 1; i <= numChildren; i++) {
+    row.push(
+      formData[`childFirstName_${i}`] || '',
+      formData[`childLastName_${i}`]  || '',
+      formData[`dob_${i}`]            || '',
+      formData[`age_${i}`]            || '',
+      formData[`childStreet_${i}`]    || '',
+      formData[`childCity_${i}`]      || '',
+      formData[`childState_${i}`]     || '',
+      formData[`childZip_${i}`]       || ''
+    );
+  }
+  row.push(
+    formData.paymentMethod  || '',
+    formData.paymentDetails || ''
+  );
+
+  sheet.appendRow(row);
 }
