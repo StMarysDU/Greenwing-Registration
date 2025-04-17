@@ -5,8 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Greenwing Youth Event Registration</title>
   <style>
-    /* PAGE & BACKGROUND */
-    html, body { margin:0; padding:0; height:100%; font-family:Arial,sans-serif; }
+    /* =======================
+       PAGE & BACKGROUND 
+    ======================== */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
     body {
       background: url('Image/Greenwing flier 2025.png') no-repeat center center;
       background-size: cover;
@@ -14,70 +21,173 @@
       background-color: #f0f8f7;
     }
     .container {
-      max-width:900px; margin:2rem auto;
-      background:rgba(255,255,255,0.9); padding:2rem;
-      border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1);
+      max-width: 900px;
+      margin: 2rem auto;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    h1 { text-align:center; font-size:2.8rem; margin-bottom:1rem; }
-    .header-info { text-align:center; font-size:1.4rem; line-height:1.6; margin-bottom:1rem; }
-    form { display:flex; flex-direction:column; gap:1rem; }
-    label { font-weight:bold; margin-bottom:0.4rem; }
+
+    /* =======================
+       HEADERS & HEADER INFO 
+    ======================== */
+    h1 {
+      text-align: center;
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+    }
+    .header-info {
+      text-align: center;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    /* =======================
+       FORM & FIELDS 
+    ======================== */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    label {
+      font-weight: bold;
+      margin-bottom: 0.4rem;
+    }
     input, select, textarea {
-      width:100%; padding:0.5rem; font-size:1rem;
-      border:1px solid #ccc; border-radius:5px; box-sizing:border-box;
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
     }
-    textarea { resize:vertical; }
+    textarea {
+      resize: vertical;
+    }
     .section-box {
-      border:2px solid #ccc; border-radius:8px;
-      padding:1rem; background:#f9fdfc;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      padding: 1rem;
+      background-color: #f9fdfc;
+      margin-bottom: 1rem;
     }
-    fieldset { border:none; padding:0; margin:0; }
+    fieldset {
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
     legend {
-      font-size:1.2rem; font-weight:bold; color:#2c3e50;
-      margin-bottom:0.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 0.5rem;
     }
-    .row { display:flex; gap:1rem; margin-bottom:1rem; }
-    .row .field { flex:1; display:flex; flex-direction:column; }
+    .row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .row .field {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
 
-    /* ADDRESS GROUP FIX */
-    .address-group { display:flex; flex-direction:column; margin-bottom:1rem; }
-    .address-group > label { margin-bottom:0.4rem; }
-    .address-group > input { margin-bottom:1rem; }
-    .address-group .row { display:flex; gap:1rem; }
+    /* =======================
+       ADDRESS LAYOUT FIX
+    ======================== */
+    .address-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1rem;
+    }
+    .address-group > label {
+      margin-bottom: 0.4rem;
+    }
+    .address-group > input {
+      margin-bottom: 1rem;
+    }
+    .address-group .row {
+      display: flex;
+      gap: 1rem;
+    }
 
-    .address-container { display:flex; align-items:center; gap:0.5rem; margin:1rem 0; }
-    .checkbox-label { display:inline-flex; align-items:center; }
+    .address-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+      margin: 1rem 0;
+    }
+    .checkbox-label {
+      display: inline-flex;
+      align-items: center;
+      margin: 0;
+    }
 
-    .paypal-button { text-align:center; margin-top:1rem; display:none; }
+    /* PayPal button is initially hidden */
+    .paypal-button {
+      text-align: center;
+      margin-top: 1rem;
+      display: none;
+    }
     .paypal-button a {
-      padding:0.75rem 1.5rem; background:#0070ba;
-      color:white; text-decoration:none; border-radius:5px;
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: #0070ba;
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      border-radius: 5px;
     }
-    #paymentDetailsContainer { display:none; margin-top:1rem; }
 
-    button {
-      background:#28a745; color:white; padding:0.75rem;
-      font-size:1rem; border:none; border-radius:5px;
-      cursor:pointer; align-self:flex-start;
+    /* Payment Details container */
+    #paymentDetailsContainer {
+      margin-top: 1rem;
+      display: none;
     }
-    button:hover { background:#218838; }
+    #paymentDetailsContainer label {
+      margin-bottom: 0.4rem;
+      font-weight: bold;
+    }
+
+    /* =======================
+       BUTTON STYLES 
+    ======================== */
+    button {
+      background-color: #28a745;
+      color: white;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+    button:hover {
+      background-color: #218838;
+    }
   </style>
 </head>
 <body>
   <div class="container">
+    <!-- Top Header -->
     <h1>Greenwing Youth Event Registration</h1>
     <div class="header-info">
       <p>Hosted by St. Mary's County Ducks Unlimited</p>
       <p>
-        <strong>Date:</strong> June 7th, 8 AM – 2 PM<br>
-        <strong>Location:</strong> Sanner's Lake Sportsmen's Club,<br>
-        21374 Sanner's Lane, Lexington Park, MD 20653<br>
-        <strong>Cost:</strong> $20 per child (includes membership & lunch)
+        <strong>Date:</strong> June 7th, 8 AM – 2 PM<br>
+        <strong>Location:</strong> Sanner's Lake Sportsmen's Club,<br>
+        21374 Sanner's Lane, Lexington Park, MD 20653<br>
+        <strong>Cost:</strong> $20 per child (includes membership and lunch)
       </p>
       <p>Children must be accompanied by an adult.</p>
     </div>
 
-    <!-- hidden iframe so form POST doesn’t navigate away -->
+    <!-- Hidden iframe so POST doesn’t navigate away -->
     <iframe name="hidden_iframe" style="display:none;"></iframe>
 
     <form id="regForm"
@@ -85,7 +195,7 @@
           method="post"
           target="hidden_iframe">
 
-      <!-- Parent/Guardian -->
+      <!-- Parent/Guardian Section -->
       <fieldset class="section-box parent-box">
         <legend>Parent/Guardian Information</legend>
         <div class="row">
@@ -128,10 +238,10 @@
         <input type="number" id="numChildren" name="numChildren" min="1" value="1" required>
       </div>
 
-      <!-- Child Sections -->
+      <!-- Dynamically Generated Child Sections -->
       <div id="childContainer"></div>
 
-      <!-- Payment Method -->
+      <!-- Payment Method Dropdown -->
       <div class="section-box">
         <label for="paymentMethod">Payment Method:</label>
         <select id="paymentMethod" name="paymentMethod" required>
@@ -142,7 +252,7 @@
         </select>
       </div>
 
-      <!-- Payment Details -->
+      <!-- Payment Details Container -->
       <div id="paymentDetailsContainer" class="section-box">
         <label for="paymentDetails">Payment Details (no sensitive info):</label>
         <textarea id="paymentDetails" name="paymentDetails" rows="3" placeholder="How was payment submitted?"></textarea>
@@ -153,7 +263,7 @@
         <a href="https://paypal.me/stmarysdu" target="_blank">Pay via PayPal</a>
       </div>
 
-      <!-- Submit -->
+      <!-- Submit Button -->
       <button type="submit" disabled>Register Now</button>
     </form>
   </div>
