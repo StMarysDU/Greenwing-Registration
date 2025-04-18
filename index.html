@@ -14,22 +14,28 @@
   <style>
     /* PAGE & BACKGROUND */
     html, body {
-      margin: 0; padding: 0; height: 100%;
+      margin: 0; 
+      padding: 0; 
+      height: 100%;
       font-family: Arial, sans-serif;
     }
     body {
+      /* full image always fits, centered */
       background: url('Image/DU greenwing_4C.png') no-repeat center center;
-      background-size: 120% auto;
+      background-size: contain;
       background-color: #f0f8f7;
     }
+
     .container {
-      max-width: 900px;
-      margin: 2rem auto;
-      background: rgba(255,255,255,0.9);
+      /* slightly narrower so you see background on sides */
+      max-width: 800px;
+      margin: 3rem auto;
+      /* more transparent so image shows through */
+      background: rgba(255,255,255,0.75);
       padding: 2rem;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      border: 2px solid #2E8B57;
+      border: 2px solid #2E8B57;   /* Greenwing‑green outline */
       position: relative;
       z-index: 1;
     }
@@ -63,7 +69,7 @@
     .header-info {
       font-family: 'Poppins', sans-serif;
       font-weight: 400;
-      background: rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.85);
       padding: 1.5rem;
       border-radius: 8px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
