@@ -14,23 +14,22 @@
   <style>
     /* PAGE & BACKGROUND */
     html, body {
-      margin: 0; 
-      padding: 0; 
+      margin: 0;
+      padding: 0;
       height: 100%;
       font-family: Arial, sans-serif;
     }
     body {
-      /* full image always fits, centered */
-      background: url('Image/DU greenwing_4C.png') no-repeat center center;
-      background-size: contain;
+      /* center horizontally, 30% down vertically */
+      background: url('Image/DU greenwing_4C.png') no-repeat center 30%;
+      /* enlarge to 150% width, auto height */
+      background-size: 150% auto;
       background-color: #f0f8f7;
     }
-
     .container {
-      /* slightly narrower so you see background on sides */
+      /* slightly narrower so background shows through */
       max-width: 800px;
       margin: 3rem auto;
-      /* more transparent so image shows through */
       background: rgba(255,255,255,0.75);
       padding: 2rem;
       border-radius: 10px;
