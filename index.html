@@ -18,7 +18,6 @@
       font-family: Arial, sans-serif;
     }
     body {
-      /* center & enlarge the image to 120% of viewport width */
       background: url('Image/DU greenwing_4C.png') no-repeat center center;
       background-size: 120% auto;
       background-color: #f0f8f7;
@@ -187,17 +186,23 @@
       margin-top: 1rem;
     }
 
-    /* SUBMIT BUTTON */
-    button {
-      background: #28a745;
-      color: white;
-      padding: 0.75rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      align-self: flex-start;
+    /* SUBMIT NOTE & BUTTON CONTAINER */
+    .submit-container {
+      text-align: center;
+      margin-top: 1.5rem;
     }
+    .submit-note {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 0.5rem;
+    }
+    .submit-container button {
+      font-size: 1.25rem;
+      padding: 1rem 2rem;
+      display: inline-block;
+      margin: 0 auto;
+    }
+
     button:hover {
       background: #218838;
     }
@@ -218,7 +223,7 @@
     <h1>Greenwing Youth Event Registration</h1>
 
     <div class="header-info">
-      <p>Hosted by St. Mary's County Ducks Unlimited & Sanner's Lake Sportsmen's Club</p>
+      <p>Hosted by St. Mary's County Ducks Unlimited & Sanner's Lake Sportsmen's Club</p>
       <p>
         <strong>Date:</strong> June 7th, 8 AM – 2 PM<br>
         <strong>Location:</strong> Sanner's Lake Sportsmen's Club, 21374 Sanner's Lane, Lexington Park, MD 20653<br>
@@ -308,8 +313,15 @@
         <a href="https://paypal.me/stmarysdu" target="_blank">Pay via PayPal</a>
       </div>
 
-      <!-- Submit Button -->
-      <button type="submit" disabled>Register Now</button>
+      <!-- Submit Note + Button -->
+      <div class="submit-container">
+        <p class="submit-note">
+          You will receive a pop‑up notification upon successful registration.
+          If you do not receive one, please ensure all fields have been completed.
+        </p>
+        <button type="submit" disabled>Register Now</button>
+      </div>
+
     </form>
   </div>
 
