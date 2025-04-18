@@ -20,9 +20,9 @@
       font-family: Arial, sans-serif;
     }
     body {
-      background: url('Image/DU greenwing_4C.png') no-repeat center center;
-      background-size: cover;
-      background-attachment: fixed;
+      /* Shrink to fit and pin to top */
+      background: url('Image/DU_greenwing_4C.png') no-repeat top center;
+      background-size: contain;
       background-color: #f0f8f7;
     }
     .container {
@@ -38,22 +38,32 @@
     h1 {
       font-family: 'Poppins', sans-serif;
       font-weight: 600;
-      color: #2E8B57; /* Greenwing‑duck green */
+      color: #2E8B57;                     /* Greenwing‑duck green */
       position: relative;
       display: inline-block;
       text-align: center;
       font-size: 2.8rem;
       margin-bottom: 1rem;
+      /* Gold outline */
+      -webkit-text-stroke: 1px #DAA520;   /* gold stroke */
+      text-stroke: 1px #DAA520;          /* future spec */
+      /* fallback shadow for non‑WebKit */
+      text-shadow:
+        1px  1px 0 #DAA520,
+       -1px -1px 0 #DAA520,
+        1px -1px 0 #DAA520,
+       -1px  1px 0 #DAA520;
     }
     h1::after {
       content: '';
       display: block;
       width: 60%;
       height: 4px;
-      background: #2E8B57;
+      background: #DAA520;                /* same gold underline */
       margin: 0.5rem auto 0;
       border-radius: 2px;
     }
+
     .header-info {
       position: relative;
       font-family: 'Poppins', sans-serif;
@@ -207,7 +217,6 @@
 <body>
   <div class="container">
     <h1>Greenwing Youth Event Registration</h1>
-
     <div class="header-info">
       <p>
         Hosted by St. Mary's County Ducks Unlimited & Sanner's Lake Sportsmen's Club
@@ -278,7 +287,7 @@
         <input type="number" id="numChildren" name="numChildren" min="1" value="1" required>
       </div>
 
-      <!-- Child Sections -->
+      <!-- Dynamically Generated Child Sections -->
       <div id="childContainer"></div>
 
       <!-- Payment Method -->
@@ -312,7 +321,7 @@
     function generateChildBox(i) {
       return `
       <fieldset class="section-box child-box">
-        <legend>Child Information – Child ${i}</legend>
+        <legend>Child Information – Child ${i}</legend>
         <div class="row">
           <div class="field">
             <label for="childFirstName_${i}">First Name:</label>
@@ -325,7 +334,7 @@
         </div>
         <div class="row">
           <div class="field">
-            <label for="dob_${i}">DOB (MM/YYYY):</label>
+            <label for="dob_${i}">DOB (MM/YYYY):</label>
             <input type="text" id="dob_${i}" name="dob_${i}" placeholder="MM/YYYY"
                    pattern="^(0[1-9]|1[0-2])\\/\\d{4}$" maxlength="7" required>
           </div>
