@@ -8,8 +8,7 @@
     /* PAGE & BACKGROUND */
     html, body { margin:0; padding:0; height:100%; font-family:Arial,sans-serif; }
     body {
-      /* UPDATED to use your new image filename */
-      background: url('Image/DU greenwing_4C.png') no-repeat center center;
+      background: url('Image/DU_greenwing_4C.png') no-repeat center center;
       background-size: cover;
       background-attachment: fixed;
       background-color: #f0f8f7;
@@ -19,8 +18,18 @@
       background:rgba(255,255,255,0.9); padding:2rem;
       border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1);
     }
+
+    /* HEADERS & HEADER INFO */
     h1 { text-align:center; font-size:2.8rem; margin-bottom:1rem; }
-    .header-info { text-align:center; font-size:1.4rem; line-height:1.6; margin-bottom:1rem; }
+    .header-info {
+      text-align:center; font-size:1.4rem; line-height:1.6; margin-bottom:1rem;
+    }
+    /* NEW: add spacing between Date/Location/Cost lines */
+    .header-info .info-line {
+      margin-bottom: 1rem;
+    }
+
+    /* FORM & FIELDS */
     form { display:flex; flex-direction:column; gap:1rem; }
     label { font-weight:bold; margin-bottom:0.4rem; }
     input, select, textarea {
@@ -80,10 +89,9 @@
 <body>
   <div class="container">
     <h1>Greenwing Youth Event Registration</h1>
-     <div class="header-info">
+    <div class="header-info">
       <p>Hosted by St. Mary's County Ducks Unlimited & Sanner's Lake Sportsmen's Club</p>
 
-      <!-- Split each into its own paragraph for spacing -->
       <p class="info-line">
         <strong>Date:</strong> June 7th, 8 AM – 2 PM
       </p>
