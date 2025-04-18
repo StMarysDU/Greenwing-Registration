@@ -5,10 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Greenwing Youth Event Registration</title>
   <style>
+    /* PAGE & BACKGROUND */
     html, body { margin:0; padding:0; height:100%; font-family:Arial,sans-serif; }
     body {
-      background: url('Image/Greenwing flier 2025.png') no-repeat center center;
-      background-size: cover; background-attachment: fixed;
+      /* UPDATED to use your new image filename */
+      background: url('Image/DU_greenwing_4C.png') no-repeat center center;
+      background-size: cover;
+      background-attachment: fixed;
       background-color: #f0f8f7;
     }
     .container {
@@ -37,12 +40,23 @@
     .row { display:flex; gap:1rem; margin-bottom:1rem; }
     .row .field { flex:1; display:flex; flex-direction:column; }
 
+    /* PARENT: email + phone on one line */
+    .parent-contact {
+      display:flex; gap:1rem; margin-bottom:1rem;
+    }
+    .parent-contact .field { flex:1; }
+
+    /* ADDRESS GROUP FIX */
     .address-group { display:flex; flex-direction:column; margin-bottom:1rem; }
     .address-group > label { margin-bottom:0.4rem; }
     .address-group > input { margin-bottom:1rem; }
     .address-group .row { display:flex; gap:1rem; }
 
-    .address-container { display:flex; align-items:center; gap:0.5rem; margin:1rem 0; }
+    /* KEEP child address checkbox on one line */
+    .address-container {
+      display:flex; align-items:center; gap:0.5rem;
+      flex-wrap:nowrap; white-space:nowrap; margin:1rem 0;
+    }
     .checkbox-label { display:inline-flex; align-items:center; }
 
     .paypal-button { text-align:center; margin-top:1rem; display:none; }
@@ -58,18 +72,21 @@
       cursor:pointer; align-self:flex-start;
     }
     button:hover { background:#218838; }
+
+    /* Extra top margin on each child fieldset */
+    .child-box { margin-top:1.5rem; }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Greenwing Youth Event Registration</h1>
     <div class="header-info">
-      <p>Hosted by St. Mary's County Ducks Unlimited</p>
+      <p>Hosted by St. Mary's County Ducks Unlimited & Sanner's Lake Sportsmen's Club</p>
       <p>
         <strong>Date:</strong> June 7th, 8 AM–2 PM<br>
         <strong>Location:</strong> Sanner's Lake Sportsmen's Club,<br>
         21374 Sanner's Lane, Lexington Park, MD 20653<br>
-        <strong>Cost:</strong> $20 per child (includes membership & lunch)
+        <strong>Cost:</strong> $20 per child (Greenwing membership and lunch)
       </p>
       <p>Children must be accompanied by an adult.</p>
     </div>
@@ -83,7 +100,7 @@
           target="hidden_iframe">
 
       <!-- Parent/Guardian -->
-      <fieldset class="section-box">
+      <fieldset class="section-box parent-box">
         <legend>Parent/Guardian Information</legend>
         <div class="row">
           <div class="field">
@@ -113,10 +130,16 @@
             </div>
           </div>
         </div>
-        <label for="email">Email Address:</label>
-        <input type="email" id="email" name="email" required>
-        <label for="phone">Phone Number:</label>
-        <input type="tel" id="phone" name="phone" required>
+        <div class="parent-contact">
+          <div class="field">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="field">
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+          </div>
+        </div>
       </fieldset>
 
       <!-- Number of Children -->
@@ -159,7 +182,7 @@
     function generateChildBox(i) {
       return `
       <fieldset class="section-box child-box">
-        <legend>Child Information – Child ${i}</legend>
+        <legend>Child Information – Child ${i}</legend>
         <div class="row">
           <div class="field">
             <label for="childFirstName_${i}">First Name:</label>
@@ -239,7 +262,8 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       updateChildBoxes();
-      document.getElementById('numChildren').addEventListener('input', updateChildBoxes);
+      document.getElementById('numChildren')
+        .addEventListener('input', updateChildBoxes);
 
       const form = document.getElementById('regForm');
       const submitBtn = form.querySelector('button[type="submit"]');
@@ -248,16 +272,17 @@
       });
       submitBtn.disabled = !form.checkValidity();
 
-      document.getElementById('paymentMethod').addEventListener('change', function() {
-        document.querySelector('.paypal-button').style.display =
-          this.value === 'Pay Now Via PayPal' ? 'block' : 'none';
-        document.getElementById('paymentDetailsContainer').style.display =
-          this.value === 'Paid' ? 'block' : 'none';
-      });
+      document.getElementById('paymentMethod')
+        .addEventListener('change', function() {
+          document.querySelector('.paypal-button').style.display =
+            this.value === 'Pay Now Via PayPal' ? 'block' : 'none';
+          document.getElementById('paymentDetailsContainer').style.display =
+            this.value === 'Paid' ? 'block' : 'none';
+        });
 
       // confirmation on hidden‑iframe load
       let expecting = false;
-      form.addEventListener('submit', () => { expecting = true; });
+      form.addEventListener('submit', () => expecting = true);
       document.querySelector('iframe[name="hidden_iframe"]')
         .addEventListener('load', () => {
           if (expecting) {
