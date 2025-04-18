@@ -144,8 +144,7 @@
 
     /* SUBMIT NOTE & BUTTON */
     .submit-container {
-      text-align: center;
-      margin-top: 1.5rem;
+      text-align: center; margin-top: 1.5rem;
     }
     .submit-note {
       font-size: 0.9rem; color: #555; margin-bottom: 0.5rem;
@@ -185,6 +184,14 @@
       font-weight: bold;
       text-align: center;
       z-index: 10000;
+    }
+    #thankYouMessage .close-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.75rem;
+      font-size: 1.5rem;
+      color: #333;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -296,7 +303,10 @@
   </div>
 
   <!-- Thank You Overlay -->
-  <div id="thankYouMessage">Thank you!<br>Your registration has been received.</div>
+  <div id="thankYouMessage">
+    <span class="close-btn">&times;</span>
+    Thank you!<br>Your registration has been received.
+  </div>
 
   <script>
     function generateChildBox(i) {
@@ -389,6 +399,12 @@
       const form = document.getElementById('regForm');
       const submitBtn = form.querySelector('button[type="submit"]');
       const thankYou = document.getElementById('thankYouMessage');
+      const closeBtn = thankYou.querySelector('.close-btn');
+
+      // Close handler
+      closeBtn.addEventListener('click', () => {
+        thankYou.style.display = 'none';
+      });
 
       // highlight invalid on submit
       form.addEventListener('submit', e => {
@@ -411,16 +427,13 @@
             this.value === 'Paid' ? 'block' : 'none';
         });
 
-      // custom centered thank you on hidden‑iframe load
+      // Show overlay on hidden‑iframe load
       let expecting = false;
       form.addEventListener('submit', () => expecting = true);
       document.querySelector('iframe[name="hidden_iframe"]')
         .addEventListener('load', () => {
           if (expecting) {
             thankYou.style.display = 'block';
-            setTimeout(() => {
-              thankYou.style.display = 'none';
-            }, 3000);
             form.reset();
             updateChildBoxes();
             expecting = false;
