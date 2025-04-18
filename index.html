@@ -29,6 +29,8 @@
       padding: 2rem;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1;
     }
 
     /* STYLIZED HEADER */
@@ -94,127 +96,95 @@
       box-sizing: border-box;
       transition: border-color 0.2s;
     }
-    textarea {
-      resize: vertical;
-    }
+    textarea { resize: vertical; }
+
     .section-box {
       border: 2px solid #ccc;
       border-radius: 8px;
       padding: 1rem;
       background: #f9fdfc;
     }
-    fieldset {
-      border: none;
-      padding: 0;
-      margin: 0;
-    }
+    fieldset { border: none; padding: 0; margin: 0; }
     legend {
       font-size: 1.2rem;
       font-weight: bold;
       color: #2c3e50;
       margin-bottom: 0.5rem;
     }
-    .row {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-    .row .field {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
+    .row { display: flex; gap: 1rem; margin-bottom: 1rem; }
+    .row .field { flex: 1; display: flex; flex-direction: column; }
 
-    /* PARENT CONTACT: email + phone on one line */
     .parent-contact {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1rem;
+      display: flex; gap: 1rem; margin-bottom: 1rem;
     }
-    .parent-contact .field {
-      flex: 1;
-    }
+    .parent-contact .field { flex: 1; }
 
-    /* ADDRESS GROUP */
     .address-group {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 1rem;
+      display: flex; flex-direction: column; margin-bottom: 1rem;
     }
-    .address-group > label {
-      margin-bottom: 0.4rem;
-    }
-    .address-group > input {
-      margin-bottom: 1rem;
-    }
-    .address-group .row {
-      display: flex;
-      gap: 1rem;
-    }
+    .address-group > label { margin-bottom: 0.4rem; }
+    .address-group > input { margin-bottom: 1rem; }
+    .address-group .row { display: flex; gap: 1rem; }
 
-    /* KEEP child address checkbox on one line */
     .address-container {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: nowrap;
-      white-space: nowrap;
-      margin: 1rem 0;
+      display: flex; align-items: center; gap: 0.5rem;
+      flex-wrap: nowrap; white-space: nowrap; margin: 1rem 0;
     }
-    .checkbox-label {
-      display: inline-flex;
-      align-items: center;
-    }
+    .checkbox-label { display: inline-flex; align-items: center; }
 
-    /* PAYPAL BUTTON */
     .paypal-button {
-      text-align: center;
-      margin-top: 1rem;
-      display: none;
+      text-align: center; margin-top: 1rem; display: none;
     }
     .paypal-button a {
-      padding: 0.75rem 1.5rem;
-      background: #0070ba;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
+      padding: 0.75rem 1.5rem; background: #0070ba;
+      color: white; text-decoration: none; border-radius: 5px;
     }
 
-    /* PAYMENT DETAILS */
-    #paymentDetailsContainer {
-      display: none;
-      margin-top: 1rem;
-    }
+    #paymentDetailsContainer { display: none; margin-top: 1rem; }
 
-    /* SUBMIT NOTE & BUTTON CONTAINER */
+    /* SUBMIT NOTE & BUTTON */
     .submit-container {
       text-align: center;
       margin-top: 1.5rem;
     }
     .submit-note {
-      font-size: 0.9rem;
-      color: #555;
-      margin-bottom: 0.5rem;
+      font-size: 0.9rem; color: #555; margin-bottom: 0.5rem;
     }
     .submit-container button {
-      font-size: 1.25rem;
-      padding: 1rem 2rem;
-      display: inline-block;
-      margin: 0 auto;
+      background: #ccc; color: #666;
+      font-size: 1.25rem; padding: 1rem 2rem;
+      border: none; border-radius: 5px;
+      cursor: not-allowed;
+    }
+    .submit-container button:enabled {
+      background: #2E8B57; color: white;
+      cursor: pointer;
+    }
+    .submit-container button:enabled:hover {
+      background: #276f49;
     }
 
-    button:hover {
-      background: #218838;
-    }
+    .child-box { margin-top: 1.5rem; }
 
-    /* Extra spacing above each child box */
-    .child-box {
-      margin-top: 1.5rem;
-    }
-
-    /* HIGHLIGHT INVALID FIELDS */
     input:invalid, select:invalid, textarea:invalid {
       border-color: #e74c3c;
+    }
+
+    /* THANK YOU OVERLAY */
+    #thankYouMessage {
+      display: none;
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255,255,255,0.95);
+      padding: 2rem 3rem;
+      border: 2px solid #2E8B57;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      font-size: 2rem;
+      font-weight: bold;
+      text-align: center;
+      z-index: 10000;
     }
   </style>
 </head>
@@ -239,7 +209,7 @@
           method="post"
           target="hidden_iframe">
 
-      <!-- Parent/Guardian Section -->
+      <!-- Parent/Guardian -->
       <fieldset class="section-box parent-box">
         <legend>Parent/Guardian Information</legend>
         <div class="row">
@@ -288,7 +258,7 @@
         <input type="number" id="numChildren" name="numChildren" min="1" value="1" required>
       </div>
 
-      <!-- Dynamically Generated Child Sections -->
+      <!-- Children -->
       <div id="childContainer"></div>
 
       <!-- Payment Method -->
@@ -324,6 +294,9 @@
 
     </form>
   </div>
+
+  <!-- Thank You Overlay -->
+  <div id="thankYouMessage">Thank you!<br>Your registration has been received.</div>
 
   <script>
     function generateChildBox(i) {
@@ -415,6 +388,7 @@
 
       const form = document.getElementById('regForm');
       const submitBtn = form.querySelector('button[type="submit"]');
+      const thankYou = document.getElementById('thankYouMessage');
 
       // highlight invalid on submit
       form.addEventListener('submit', e => {
@@ -437,13 +411,16 @@
             this.value === 'Paid' ? 'block' : 'none';
         });
 
-      // confirmation on hidden‑iframe load
+      // custom centered thank you on hidden‑iframe load
       let expecting = false;
       form.addEventListener('submit', () => expecting = true);
       document.querySelector('iframe[name="hidden_iframe"]')
         .addEventListener('load', () => {
           if (expecting) {
-            alert('Thank you! Your registration has been received.');
+            thankYou.style.display = 'block';
+            setTimeout(() => {
+              thankYou.style.display = 'none';
+            }, 3000);
             form.reset();
             updateChildBoxes();
             expecting = false;
