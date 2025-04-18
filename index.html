@@ -14,15 +14,13 @@
   <style>
     /* PAGE & BACKGROUND */
     html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
+      margin: 0; padding: 0; height: 100%;
       font-family: Arial, sans-serif;
     }
     body {
-      /* use your exact GitHub filename */
-      background: url('Image/DU greenwing_4C.png') no-repeat top center;
-      background-size: contain;
+      /* center & enlarge the image to 120% of viewport width */
+      background: url('Image/DU greenwing_4C.png') no-repeat center center;
+      background-size: 120% auto;
       background-color: #f0f8f7;
     }
     .container {
@@ -37,27 +35,25 @@
     /* STYLIZED HEADER */
     h1 {
       font-family: 'Poppins', sans-serif;
-      font-weight: 700;               /* bold */
-      color: #2E8B57;                 /* greenwing‑duck green */
-      font-size: 3.5rem;              /* larger size */
-      text-align: center;             /* center above header-info */
-      margin: 0 0 1rem;               /* space below */
-      /* thin gold outline */
+      font-weight: 700;
+      color: #2E8B57;
+      font-size: 3.5rem;
+      text-align: center;
+      margin: 0 0 1rem;
       -webkit-text-stroke: 1px #DAA520;
       text-stroke: 1px #DAA520;
-      /* fallback shadow for non‑WebKit */
       text-shadow:
-        1px  1px 0 #DAA520,
+        1px 1px 0 #DAA520,
        -1px -1px 0 #DAA520,
         1px -1px 0 #DAA520,
-       -1px  1px 0 #DAA520;
+       -1px 1px 0 #DAA520;
     }
     h1::after {
       content: '';
       display: block;
       width: 60%;
       height: 4px;
-      background: #DAA520;            /* gold underline */
+      background: #DAA520;
       margin: 0.5rem auto 0;
       border-radius: 2px;
     }
@@ -97,6 +93,7 @@
       border: 1px solid #ccc;
       border-radius: 5px;
       box-sizing: border-box;
+      transition: border-color 0.2s;
     }
     textarea {
       resize: vertical;
@@ -209,6 +206,11 @@
     .child-box {
       margin-top: 1.5rem;
     }
+
+    /* HIGHLIGHT INVALID FIELDS */
+    input:invalid, select:invalid, textarea:invalid {
+      border-color: #e74c3c;
+    }
   </style>
 </head>
 <body>
@@ -216,17 +218,13 @@
     <h1>Greenwing Youth Event Registration</h1>
 
     <div class="header-info">
-      <p>
-        Hosted by St. Mary's County Ducks Unlimited & Sanner's Lake Sportsmen's Club
-      </p>
+      <p>Hosted by St. Mary's County Ducks Unlimited & Sanner's Lake Sportsmen's Club</p>
       <p>
         <strong>Date:</strong> June 7th, 8 AM – 2 PM<br>
         <strong>Location:</strong> Sanner's Lake Sportsmen's Club, 21374 Sanner's Lane, Lexington Park, MD 20653<br>
         <strong>Cost:</strong> $20 per child (Greenwing membership and lunch)
       </p>
-      <p>
-        Children must be accompanied by an adult.
-      </p>
+      <p>Children must be accompanied by an adult.</p>
     </div>
 
     <iframe name="hidden_iframe" style="display:none;"></iframe>
@@ -384,8 +382,9 @@
         const chk = document.getElementById(`childDiffAddrCheckbox_${i}`);
         chk.addEventListener('change', () => {
           const div = document.getElementById(`childAddressContainer_${i}`);
-          const fields = ['Street','City','State','Zip']
-            .map(f => document.getElementById(`child${f}_${i}`));
+          const fields = ['Street','City','State','Zip'].map(f =>
+            document.getElementById(`child${f}_${i}`)
+          );
           if (chk.checked) {
             div.style.display = 'block';
             fields.forEach(el => el.setAttribute('required',''));
@@ -404,6 +403,15 @@
 
       const form = document.getElementById('regForm');
       const submitBtn = form.querySelector('button[type="submit"]');
+
+      // highlight invalid on submit
+      form.addEventListener('submit', e => {
+        if (!form.checkValidity()) {
+          e.preventDefault();
+          form.reportValidity();
+        }
+      });
+
       form.addEventListener('input', () => {
         submitBtn.disabled = !form.checkValidity();
       });
