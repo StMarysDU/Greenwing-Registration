@@ -10,148 +10,135 @@
 
   <style>
     /* PAGE & BACKGROUND */
-    html, body {
-      margin: 0; padding: 0; height: 100%;
-      font-family: Arial, sans-serif;
-    }
+    html, body { margin:0; padding:0; height:100%; font-family:Arial,sans-serif; }
     body {
-      /* push image down to 3%, scale to 110% width */
       background: url('Image/DU greenwing_4C.png') no-repeat center 3%;
       background-size: 110% auto;
       background-color: #f0f8f7;
     }
     .container {
-      max-width: 800px;
-      margin: 3rem auto;
-      background: rgba(255,255,255,0.75);
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      border: 2px solid #2E8B57;
+      max-width:800px; margin:3rem auto;
+      background:rgba(255,255,255,0.75);
+      padding:2rem; border-radius:10px;
+      box-shadow:0 0 10px rgba(0,0,0,0.1);
+      border:2px solid #2E8B57;
     }
 
     /* HEADER */
     h1 {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      color: #2E8B57;
-      font-size: 4rem;
-      text-align: center;
-      margin-bottom: 1rem;
-      -webkit-text-stroke: 1px #DAA520;
-      text-shadow:
-        1px 1px 0 #DAA520, -1px -1px 0 #DAA520,
-        1px -1px 0 #DAA520, -1px 1px 0 #DAA520;
+      font-family:'Poppins',sans-serif; font-weight:700;
+      color:#2E8B57; font-size:4rem; text-align:center;
+      margin-bottom:1rem;
+      -webkit-text-stroke:1px #DAA520;
+      text-shadow:1px 1px 0 #DAA520, -1px -1px 0 #DAA520,
+                  1px -1px 0 #DAA520, -1px 1px 0 #DAA520;
     }
     h1::after {
-      content: ''; display: block;
-      width: 60%; height: 4px;
-      background: #DAA520;
-      margin: 0.5rem auto 0;
-      border-radius: 2px;
+      content:''; display:block; width:60%; height:4px;
+      background:#DAA520; margin:0.5rem auto 0;
+      border-radius:2px;
     }
 
     .header-info {
-      font-family: 'Poppins', sans-serif;
-      background: rgba(255,255,255,0.85);
-      padding: 1.5rem; border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      text-align: center; font-size: 1.4rem;
-      line-height: 1.6; margin-bottom: 1rem;
+      font-family:'Poppins',sans-serif; font-weight:400;
+      background:rgba(255,255,255,0.85); padding:1.5rem;
+      border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.1);
+      text-align:center; font-size:1.4rem; line-height:1.6;
+      margin-bottom:1rem;
     }
     .header-info p:last-of-type {
-      margin-top: 1rem; font-style: italic; color: #555;
+      margin-top:1rem; font-style:italic; color:#555;
     }
 
     /* FORM & FIELDS */
-    form { display: flex; flex-direction: column; gap: 1rem; }
-    label { font-weight: bold; margin-bottom: 0.4rem; }
-    input, select { width: 100%; padding: 0.5rem; font-size: 1rem;
-      border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+    form { display:flex; flex-direction:column; gap:1rem; }
+    label { font-weight:bold; margin-bottom:0.4rem; }
+    input, select { width:100%; padding:0.5rem; font-size:1rem;
+      border:1px solid #ccc; border-radius:5px; box-sizing:border-box;
+      transition:border-color 0.2s;
+    }
     .section-box {
-      border: 2px solid #ccc; border-radius: 8px;
-      padding: 1rem; background: #f9fdfc;
+      border:2px solid #ccc; border-radius:8px;
+      padding:1rem; background:#f9fdfc;
     }
-    fieldset { border: none; margin: 0; padding: 0; }
+    fieldset { border:none; margin:0; padding:0; }
     legend {
-      font-size: 1.2rem; font-weight: bold; color: #2c3e50;
-      margin-bottom: 0.5rem;
+      font-size:1.2rem; font-weight:bold; color:#2c3e50;
+      margin-bottom:0.5rem;
     }
-    .row { display: flex; gap: 1rem; margin-bottom: 1rem; }
-    .row .field { flex: 1; display: flex; flex-direction: column; }
+    .row { display:flex; gap:1rem; margin-bottom:1rem; }
+    .row .field { flex:1; display:flex; flex-direction:column; }
 
     .parent-contact {
-      display: flex; gap: 1rem; margin-bottom: 1rem;
+      display:flex; gap:1rem; margin-bottom:1rem;
     }
-    .parent-contact .field { flex: 1; }
+    .parent-contact .field { flex:1; }
 
     .address-container {
-      display: flex; align-items: center; gap: 0.5rem;
-      white-space: nowrap; margin: 1rem 0;
+      display:flex; align-items:center; gap:0.5rem;
+      white-space:nowrap; margin:1rem 0;
     }
-    .checkbox-label { display: inline-flex; align-items: center; }
+    .checkbox-label { display:inline-flex; align-items:center; }
 
     /* PAYPAL INSTRUCTION */
     #paypalInstruction {
-      display: none;
-      font-size: 1.1rem;      /* increased */
-      color: #555;
-      text-align: center;     /* center over button */
-      margin: 0.5rem auto;
-      width: 100%;
+      display:none;
+      font-size:1.1rem;
+      font-weight:600;             /* made bolder */
+      color:#555;
+      text-align:center;
+      margin:0.5rem auto;
+      width:100%;
     }
 
     .paypal-button {
-      text-align: center; margin-top: 0.5rem; display: none;
+      text-align:center; margin-top:0.5rem; display:none;
     }
     .paypal-button a {
-      padding: 0.75rem 1.5rem;
-      background: #0070ba; color: white;
-      text-decoration: none; border-radius: 5px;
+      padding:0.75rem 1.5rem; background:#0070ba;
+      color:white; text-decoration:none; border-radius:5px;
     }
 
     /* SUBMIT NOTE & BUTTON */
     .submit-container {
-      text-align: center; margin-top: 1.5rem;
+      text-align:center; margin-top:1.5rem;
     }
     .submit-note {
-      font-size: 1.05rem;      /* increased */
-      color: #555;
-      margin-bottom: 0.5rem;
+      font-size:1.05rem;
+      font-weight:600;             /* made bolder */
+      color:#555;
+      margin-bottom:0.5rem;
     }
     .submit-container button {
-      background: #ccc; color: #666;
-      font-size: 1.25rem; padding: 1rem 2rem;
-      border: none; border-radius: 5px;
-      cursor: not-allowed;
+      background:#ccc; color:#666;
+      font-size:1.25rem; padding:1rem 2rem;
+      border:none; border-radius:5px;
+      cursor:not-allowed;
     }
     .submit-container button:enabled {
-      background: #2E8B57; color: white;
-      cursor: pointer;
+      background:#2E8B57; color:white;
+      cursor:pointer;
     }
     .submit-container button:enabled:hover {
-      background: #276f49;
+      background:#276f49;
     }
 
-    .child-box { margin-top: 1.5rem; }
-    input:invalid, select:invalid { border-color: #e74c3c; }
+    .child-box { margin-top:1.5rem; }
+    input:invalid, select:invalid { border-color:#e74c3c; }
 
     /* THANK YOU OVERLAY */
     #thankYouMessage {
-      display: none;
-      position: fixed; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(255,255,255,0.95);
-      padding: 2rem 3rem;
-      border: 2px solid #2E8B57;
-      border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      font-size: 2rem; font-weight: bold;
-      text-align: center; z-index: 10000;
+      display:none; position:fixed;
+      top:50%; left:50%; transform:translate(-50%,-50%);
+      background:rgba(255,255,255,0.95);
+      padding:2rem 3rem; border:2px solid #2E8B57;
+      border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.3);
+      font-size:2rem; font-weight:bold;
+      text-align:center; z-index:10000;
     }
     #thankYouMessage .close-btn {
-      position: absolute; top: 0.5rem; right: 0.75rem;
-      font-size: 1.5rem; color: #333; cursor: pointer;
+      position:absolute; top:0.5rem; right:0.75rem;
+      font-size:1.5rem; color:#333; cursor:pointer;
     }
   </style>
 </head>
@@ -235,8 +222,10 @@
           <option value="Pay Now Via PayPal">Pay Now Via PayPal</option>
         </select>
       </div>
+
+      <!-- PayPal Instruction & Button -->
       <div id="paypalInstruction">
-        <strong>Important:</strong> Enter names of children being registered in PayPal notes when making payment.
+        <strong>Important:</strong> Enter first and last names of children being registered in PayPal notes when making payment.
       </div>
       <div class="paypal-button">
         <a href="https://paypal.me/stmarysdu" target="_blank">Pay via PayPal</a>
@@ -245,8 +234,7 @@
       <!-- Submit Note + Button -->
       <div class="submit-container">
         <p class="submit-note">
-          You will receive a pop‑up notification upon successful registration.
-          If you do not receive one, please ensure all fields have been completed.
+          You will receive a pop‑up notification upon successful registration. If you do not receive one, please ensure all fields have been completed.
         </p>
         <button type="submit" disabled>Register Now</button>
       </div>
@@ -369,11 +357,11 @@
 
       document.getElementById('paymentMethod').addEventListener('change', function() {
         if (this.value === 'Pay Now Via PayPal') {
-          paypalBtnDiv.style.display    = 'block';
           paypalInstruction.style.display = 'block';
+          paypalBtnDiv.style.display    = 'block';
         } else {
-          paypalBtnDiv.style.display    = 'none';
           paypalInstruction.style.display = 'none';
+          paypalBtnDiv.style.display    = 'none';
         }
       });
 
