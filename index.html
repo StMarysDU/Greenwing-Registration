@@ -6,10 +6,7 @@
   <title>Greenwing Youth Event Registration</title>
 
   <!-- Google Font -->
-  <link 
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;400&display=swap" 
-    rel="stylesheet" 
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;400&display=swap" rel="stylesheet" />
 
   <style>
     /* PAGE & BACKGROUND */
@@ -90,7 +87,7 @@
       font-weight: bold;
       margin-bottom: 0.4rem;
     }
-    input, select, textarea {
+    input, select {
       width: 100%;
       padding: 0.5rem;
       font-size: 1rem;
@@ -99,7 +96,6 @@
       box-sizing: border-box;
       transition: border-color 0.2s;
     }
-    textarea { resize: vertical; }
     .section-box {
       border: 2px solid #ccc;
       border-radius: 8px;
@@ -121,9 +117,6 @@
     }
     .parent-contact .field { flex: 1; }
 
-    .address-group {
-      display: flex; flex-direction: column; margin-bottom: 1rem;
-    }
     .address-container {
       display: flex; align-items: center; gap: 0.5rem;
       flex-wrap: nowrap; white-space: nowrap; margin: 1rem 0;
@@ -168,7 +161,7 @@
 
     .child-box { margin-top: 1.5rem; }
 
-    input:invalid, select:invalid, textarea:invalid {
+    input:invalid, select:invalid {
       border-color: #e74c3c;
     }
 
@@ -392,15 +385,10 @@
       const closeBtn = thankYou.querySelector('.close-btn');
       const paypalInstruction = document.getElementById('paypalInstruction');
 
-      closeBtn.addEventListener('click', () => {
-        thankYou.style.display = 'none';
-      });
+      closeBtn.addEventListener('click', () => { thankYou.style.display = 'none'; });
 
       form.addEventListener('submit', e => {
-        if (!form.checkValidity()) {
-          e.preventDefault();
-          form.reportValidity();
-        }
+        if (!form.checkValidity()) { e.preventDefault(); form.reportValidity(); }
       });
 
       form.addEventListener('input', () => {
@@ -428,3 +416,4 @@
   </script>
 </body>
 </html>
+
