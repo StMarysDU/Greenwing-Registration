@@ -282,17 +282,6 @@
         <strong>Important:</strong> Enter names of children being registered in PayPal notes when making payment.
       </div>
 
-      <!-- Payment Details (formerly "Paid") -->
-      <div id="paymentDetailsContainer" class="section-box">
-        <label for="paymentDetails">Payment Details (no sensitive info):</label>
-        <textarea id="paymentDetails" name="paymentDetails" rows="3" placeholder="How was payment submitted?"></textarea>
-      </div>
-
-      <!-- PayPal Button -->
-      <div class="paypal-button">
-        <a href="https://paypal.me/stmarysdu" target="_blank">Pay via PayPal</a>
-      </div>
-
       <!-- Submit Note + Button -->
       <div class="submit-container">
         <p class="submit-note">
@@ -403,7 +392,9 @@
       const closeBtn = thankYou.querySelector('.close-btn');
       const paypalInstruction = document.getElementById('paypalInstruction');
 
-      closeBtn.addEventListener('click', () => thankYou.style.display = 'none');
+      closeBtn.addEventListener('click', () => {
+        thankYou.style.display = 'none';
+      });
 
       form.addEventListener('submit', e => {
         if (!form.checkValidity()) {
