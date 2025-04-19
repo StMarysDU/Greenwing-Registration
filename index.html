@@ -30,8 +30,9 @@
       color:#2E8B57; font-size:4rem; text-align:center;
       margin-bottom:1rem;
       -webkit-text-stroke:1px #DAA520;
-      text-shadow:1px 1px 0 #DAA520, -1px -1px 0 #DAA520,
-                  1px -1px 0 #DAA520, -1px 1px 0 #DAA520;
+      text-shadow:
+        1px 1px 0 #DAA520, -1px -1px 0 #DAA520,
+        1px -1px 0 #DAA520, -1px 1px 0 #DAA520;
     }
     h1::after {
       content:''; display:block; width:60%; height:4px;
@@ -83,12 +84,9 @@
     /* PAYPAL INSTRUCTION */
     #paypalInstruction {
       display:none;
-      font-size:1.1rem;
-      font-weight:600;             /* made bolder */
-      color:#555;
-      text-align:center;
-      margin:0.5rem auto;
-      width:100%;
+      font-size:1.1rem; font-weight:600;
+      color:#555; text-align:center;
+      margin:0.5rem auto; width:100%;
     }
 
     .paypal-button {
@@ -104,10 +102,15 @@
       text-align:center; margin-top:1.5rem;
     }
     .submit-note {
-      font-size:1.05rem;
-      font-weight:600;             /* made bolder */
-      color:#555;
-      margin-bottom:0.5rem;
+      font-size:1.05rem;       /* slightly larger */
+      font-weight:700;         /* bolder */
+      color:#333;
+      background:#fff9c4;      /* pale yellow */
+      border:2px solid #ffe082;
+      padding:0.75rem 1rem;
+      border-radius:5px;
+      margin:0 auto 0.75rem;
+      max-width:90%;
     }
     .submit-container button {
       background:#ccc; color:#666;
