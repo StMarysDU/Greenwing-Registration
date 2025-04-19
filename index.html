@@ -17,8 +17,8 @@
       font-family: Arial, sans-serif;
     }
     body {
-      background: url('Image/DU greenwing_4C.png') no-repeat center 3%;
-      background-size: 110% auto;
+      background: url('Image/DU greenwing_4C.png') no-repeat center 30%;
+      background-size: 130% auto;
       background-color: #f0f8f7;
     }
     .container {
@@ -117,25 +117,34 @@
     }
     .parent-contact .field { flex: 1; }
 
+    .address-group {
+      display: flex; flex-direction: column; margin-bottom: 1rem;
+    }
     .address-container {
       display: flex; align-items: center; gap: 0.5rem;
-      flex-wrap: nowrap; white-space: nowrap; margin: 1rem 0;
+      white-space: nowrap; margin: 1rem 0;
     }
     .checkbox-label { display: inline-flex; align-items: center; }
 
     /* PAYPAL INSTRUCTION */
-    .paypal-instruction {
+    #paypalInstruction {
+      display: none;
       font-size: 0.9rem;
       color: #555;
       margin-top: 0.5rem;
     }
 
     .paypal-button {
-      text-align: center; margin-top: 1rem; display: none;
+      text-align: center;
+      margin-top: 1rem;
+      display: none;
     }
     .paypal-button a {
-      padding: 0.75rem 1.5rem; background: #0070ba;
-      color: white; text-decoration: none; border-radius: 5px;
+      padding: 0.75rem 1.5rem;
+      background: #0070ba;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
     }
 
     /* SUBMIT */
@@ -194,6 +203,7 @@
 <body>
   <div class="container">
     <h1>Greenwing Youth Event Registration</h1>
+
     <div class="header-info">
       <p>Hosted by St. Mary's County Ducks Unlimited & Sanner's Lake Sportsmen's Club</p>
       <p>
@@ -271,7 +281,7 @@
           <option value="Pay Now Via PayPal">Pay Now Via PayPal</option>
         </select>
       </div>
-      <div id="paypalInstruction" class="paypal-instruction" style="display:none;">
+      <div id="paypalInstruction">
         <strong>Important:</strong> Enter names of children being registered in PayPal notes when making payment.
       </div>
 
@@ -384,11 +394,17 @@
       const thankYou = document.getElementById('thankYouMessage');
       const closeBtn = thankYou.querySelector('.close-btn');
       const paypalInstruction = document.getElementById('paypalInstruction');
+      const paypalBtnDiv = document.querySelector('.paypal-button');
 
-      closeBtn.addEventListener('click', () => { thankYou.style.display = 'none'; });
+      closeBtn.addEventListener('click', () => {
+        thankYou.style.display = 'none';
+      });
 
       form.addEventListener('submit', e => {
-        if (!form.checkValidity()) { e.preventDefault(); form.reportValidity(); }
+        if (!form.checkValidity()) {
+          e.preventDefault();
+          form.reportValidity();
+        }
       });
 
       form.addEventListener('input', () => {
@@ -397,9 +413,13 @@
       submitBtn.disabled = !form.checkValidity();
 
       document.getElementById('paymentMethod').addEventListener('change', function() {
-        const paypalBtnDiv = document.querySelector('.paypal-button');
-        paypalBtnDiv.style.display = this.value === 'Pay Now Via PayPal' ? 'block' : 'none';
-        paypalInstruction.style.display = this.value === 'Pay Now Via PayPal' ? 'block' : 'none';
+        if (this.value === 'Pay Now Via PayPal') {
+          paypalBtnDiv.style.display = 'block';
+          paypalInstruction.style.display = 'block';
+        } else {
+          paypalBtnDiv.style.display = 'none';
+          paypalInstruction.style.display = 'none';
+        }
       });
 
       let expecting = false;
@@ -416,4 +436,3 @@
   </script>
 </body>
 </html>
-
