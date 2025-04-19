@@ -1,82 +1,47 @@
-// Code.gs
+const SPREADSHEET_ID = '1T1KjYEGFndHQR1Od8lu6gNsU1su_vUruuhR09x2R2uw';
 
-// Your Google Sheet ID
-const SHEET_ID = '1T1KjYEGFndHQR1Od8lu6gNsU1su_vUruuhR09x2R2uw';
-// The name of the tab where responses will go
-const TAB_NAME  = 'Form Responses';
-
-/**
- * This runs whenever your GitHub form POSTS to the Web App URL.
- */
 function doPost(e) {
-  // e.parameter is a flat map of name→value from the form
-  submitRegistration(e.parameter);
-  // Return a simple text response so the hidden iframe doesn't error out
+  // Open your sheet
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const sheet = ss.getSheets()[0];  // or getSheetByName('Sheet1')
+
+  // Parent/guardian info
+  const parentFirst   = e.parameter.parentFirstName;
+  const parentLast    = e.parameter.parentLastName;
+  const parentStreet  = e.parameter.parentStreet;
+  const parentCity    = e.parameter.parentCity;
+  const parentState   = e.parameter.parentState;
+  const parentZip     = e.parameter.parentZip;
+  const email         = e.parameter.email;
+  const phone         = e.parameter.phone;
+
+  // Payment method
+  const paymentMethod = e.parameter.paymentMethod;
+
+  // Number of children
+  const count = parseInt(e.parameter.numChildren, 10) || 0;
+
+  // For each child, append one row
+  const now = new Date();
+  for (let i = 1; i <= count; i++) {
+    const childFirst = e.parameter[`childFirstName_${i}`];
+    const childLast  = e.parameter[`childLastName_${i}`];
+    const dob        = e.parameter[`dob_${i}`];
+    const age        = e.parameter[`age_${i}`];
+
+    sheet.appendRow([
+      now,
+      parentFirst, parentLast,
+      parentStreet, parentCity, parentState, parentZip,
+      email, phone,
+      childFirst, childLast,
+      dob, age,
+      paymentMethod
+    ]);
+  }
+
+  // Return a simple success text
   return ContentService
-    .createTextOutput('OK')
-    .setMimeType(ContentService.MimeType.TEXT);
-}
-
-/**
- * Takes the flat formData map and appends a row in the sheet.
- */
-function submitRegistration(formData) {
-  const ss    = SpreadsheetApp.openById(SHEET_ID);
-  let   sheet = ss.getSheetByName(TAB_NAME);
-  if (!sheet) sheet = ss.insertSheet(TAB_NAME);
-
-  const numChildren = parseInt(formData.numChildren, 10) || 0;
-
-  // Write headers if this is the first submission
-  if (sheet.getLastRow() === 0) {
-    const headers = [
-      'Timestamp',
-      'parentFirstName','parentLastName',
-      'parentStreet','parentCity','parentState','parentZip',
-      'email','phone',
-      'numChildren'
-    ];
-    for (let i = 1; i <= numChildren; i++) {
-      headers.push(
-        `childFirstName_${i}`,
-        `childLastName_${i}`,
-        `dob_${i}`,
-        `age_${i}`,
-        `childStreet_${i}`,
-        `childCity_${i}`,
-        `childState_${i}`,
-        `childZip_${i}`
-      );
-    }
-    headers.push('paymentMethod','paymentDetails');
-    sheet.appendRow(headers);
-  }
-
-  // Build the row values
-  const row = [
-    new Date(),
-    formData.parentFirstName, formData.parentLastName,
-    formData.parentStreet,    formData.parentCity,
-    formData.parentState,     formData.parentZip,
-    formData.email,           formData.phone,
-    formData.numChildren
-  ];
-  for (let i = 1; i <= numChildren; i++) {
-    row.push(
-      formData[`childFirstName_${i}`] || '',
-      formData[`childLastName_${i}`]  || '',
-      formData[`dob_${i}`]            || '',
-      formData[`age_${i}`]            || '',
-      formData[`childStreet_${i}`]    || '',
-      formData[`childCity_${i}`]      || '',
-      formData[`childState_${i}`]     || '',
-      formData[`childZip_${i}`]       || ''
-    );
-  }
-  row.push(
-    formData.paymentMethod  || '',
-    formData.paymentDetails || ''
-  );
-
-  sheet.appendRow(row);
+    .createTextOutput(JSON.stringify({ result: 'success' }))
+    .setMimeType(ContentService.MimeType.JSON);
 }
