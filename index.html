@@ -20,26 +20,23 @@
       font-family: Arial, sans-serif;
     }
     body {
-      /* center horizontally, 30% down vertically */
       background: url('Image/DU greenwing_4C.png') no-repeat center 3%;
-      /* slightly reduced from 150% to 130% width so it’s a bit smaller */
       background-size: 110% auto;
       background-color: #f0f8f7;
     }
     .container {
-      /* slightly narrower so background shows through */
       max-width: 800px;
       margin: 3rem auto;
       background: rgba(255,255,255,0.75);
       padding: 2rem;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      border: 2px solid #2E8B57;   /* Greenwing‑green outline */
+      border: 2px solid #2E8B57;
       position: relative;
       z-index: 1;
     }
 
-    /* STYLIZED HEADER */
+    /* HEADER */
     h1 {
       font-family: 'Poppins', sans-serif;
       font-weight: 700;
@@ -103,7 +100,6 @@
       transition: border-color 0.2s;
     }
     textarea { resize: vertical; }
-
     .section-box {
       border: 2px solid #ccc;
       border-radius: 8px;
@@ -128,15 +124,18 @@
     .address-group {
       display: flex; flex-direction: column; margin-bottom: 1rem;
     }
-    .address-group > label { margin-bottom: 0.4rem; }
-    .address-group > input { margin-bottom: 1rem; }
-    .address-group .row { display: flex; gap: 1rem; }
-
     .address-container {
       display: flex; align-items: center; gap: 0.5rem;
       flex-wrap: nowrap; white-space: nowrap; margin: 1rem 0;
     }
     .checkbox-label { display: inline-flex; align-items: center; }
+
+    /* PAYPAL INSTRUCTION */
+    .paypal-instruction {
+      font-size: 0.9rem;
+      color: #555;
+      margin-top: 0.5rem;
+    }
 
     .paypal-button {
       text-align: center; margin-top: 1rem; display: none;
@@ -146,9 +145,7 @@
       color: white; text-decoration: none; border-radius: 5px;
     }
 
-    #paymentDetailsContainer { display: none; margin-top: 1rem; }
-
-    /* SUBMIT NOTE & BUTTON */
+    /* SUBMIT */
     .submit-container {
       text-align: center; margin-top: 1.5rem;
     }
@@ -204,7 +201,6 @@
 <body>
   <div class="container">
     <h1>Greenwing Youth Event Registration</h1>
-
     <div class="header-info">
       <p>Hosted by St. Mary's County Ducks Unlimited & Sanner's Lake Sportsmen's Club</p>
       <p>
@@ -216,13 +212,12 @@
     </div>
 
     <iframe name="hidden_iframe" style="display:none;"></iframe>
-
     <form id="regForm"
           action="https://script.google.com/macros/s/AKfycbz61Uqu5YYPyBbZmG7Q2EOlA6FDrJ60taXav47UmxcULoJ1cedwxgKhB762Cy9xiYkZDQ/exec"
           method="post"
           target="hidden_iframe">
 
-      <!-- Parent/Guardian -->
+      <!-- Parent/Guardian Section -->
       <fieldset class="section-box parent-box">
         <legend>Parent/Guardian Information</legend>
         <div class="row">
@@ -271,7 +266,7 @@
         <input type="number" id="numChildren" name="numChildren" min="1" value="1" required>
       </div>
 
-      <!-- Children -->
+      <!-- Child Sections -->
       <div id="childContainer"></div>
 
       <!-- Payment Method -->
@@ -280,12 +275,14 @@
         <select id="paymentMethod" name="paymentMethod" required>
           <option value="" disabled selected>Select your payment method</option>
           <option value="Pay at Check-in">Pay at Check-in</option>
-          <option value="Paid">Paid</option>
           <option value="Pay Now Via PayPal">Pay Now Via PayPal</option>
         </select>
       </div>
+      <div id="paypalInstruction" class="paypal-instruction" style="display:none;">
+        <strong>Important:</strong> Enter names of children being registered in PayPal notes when making payment.
+      </div>
 
-      <!-- Payment Details -->
+      <!-- Payment Details (formerly "Paid") -->
       <div id="paymentDetailsContainer" class="section-box">
         <label for="paymentDetails">Payment Details (no sensitive info):</label>
         <textarea id="paymentDetails" name="paymentDetails" rows="3" placeholder="How was payment submitted?"></textarea>
@@ -304,7 +301,6 @@
         </p>
         <button type="submit" disabled>Register Now</button>
       </div>
-
     </form>
   </div>
 
@@ -317,54 +313,54 @@
   <script>
     function generateChildBox(i) {
       return `
-      <fieldset class="section-box child-box">
-        <legend>Child Information – Child ${i}</legend>
-        <div class="row">
-          <div class="field">
-            <label for="childFirstName_${i}">First Name:</label>
-            <input type="text" id="childFirstName_${i}" name="childFirstName_${i}" required>
-          </div>
-          <div class="field">
-            <label for="childLastName_${i}">Last Name:</label>
-            <input type="text" id="childLastName_${i}" name="childLastName_${i}" required>
-          </div>
-        </div>
-        <div class="row">
-          <div class="field">
-            <label for="dob_${i}">DOB (MM/YYYY):</label>
-            <input type="text" id="dob_${i}" name="dob_${i}" placeholder="MM/YYYY"
-                   pattern="^(0[1-9]|1[0-2])\\/\\d{4}$" maxlength="7" required>
-          </div>
-          <div class="field">
-            <label for="age_${i}">Age:</label>
-            <input type="number" id="age_${i}" name="age_${i}" min="1" required>
-          </div>
-        </div>
-        <div class="address-container">
-          <label class="checkbox-label" for="childDiffAddrCheckbox_${i}">
-            <input type="checkbox" id="childDiffAddrCheckbox_${i}" name="childDiffAddrCheckbox_${i}">
-            Child has a different address
-          </label>
-        </div>
-        <div id="childAddressContainer_${i}" style="display:none;" class="address-group">
-          <label for="childStreet_${i}">Street Address:</label>
-          <input type="text" id="childStreet_${i}" name="childStreet_${i}">
+        <fieldset class="section-box child-box">
+          <legend>Child Information – Child ${i}</legend>
           <div class="row">
             <div class="field">
-              <label for="childCity_${i}">City:</label>
-              <input type="text" id="childCity_${i}" name="childCity_${i}">
+              <label for="childFirstName_${i}">First Name:</label>
+              <input type="text" id="childFirstName_${i}" name="childFirstName_${i}" required>
             </div>
             <div class="field">
-              <label for="childState_${i}">State:</label>
-              <input type="text" id="childState_${i}" name="childState_${i}">
-            </div>
-            <div class="field">
-              <label for="childZip_${i}">Zip Code:</label>
-              <input type="text" id="childZip_${i}" name="childZip_${i}">
+              <label for="childLastName_${i}">Last Name:</label>
+              <input type="text" id="childLastName_${i}" name="childLastName_${i}" required>
             </div>
           </div>
-        </div>
-      </fieldset>`;
+          <div class="row">
+            <div class="field">
+              <label for="dob_${i}">DOB (MM/YYYY):</label>
+              <input type="text" id="dob_${i}" name="dob_${i}" placeholder="MM/YYYY"
+                     pattern="^(0[1-9]|1[0-2])\\/\\d{4}$" maxlength="7" required>
+            </div>
+            <div class="field">
+              <label for="age_${i}">Age:</label>
+              <input type="number" id="age_${i}" name="age_${i}" min="1" required>
+            </div>
+          </div>
+          <div class="address-container">
+            <label class="checkbox-label" for="childDiffAddrCheckbox_${i}">
+              <input type="checkbox" id="childDiffAddrCheckbox_${i}" name="childDiffAddrCheckbox_${i}">
+              Child has a different address
+            </label>
+          </div>
+          <div id="childAddressContainer_${i}" style="display:none;" class="address-group">
+            <label for="childStreet_${i}">Street Address:</label>
+            <input type="text" id="childStreet_${i}" name="childStreet_${i}">
+            <div class="row">
+              <div class="field">
+                <label for="childCity_${i}">City:</label>
+                <input type="text" id="childCity_${i}" name="childCity_${i}">
+              </div>
+              <div class="field">
+                <label for="childState_${i}">State:</label>
+                <input type="text" id="childState_${i}" name="childState_${i}">
+              </div>
+              <div class="field">
+                <label for="childZip_${i}">Zip Code:</label>
+                <input type="text" id="childZip_${i}" name="childZip_${i}">
+              </div>
+            </div>
+          </div>
+        </fieldset>`;
     }
 
     function updateChildBoxes() {
@@ -399,20 +395,16 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       updateChildBoxes();
-      document.getElementById('numChildren')
-        .addEventListener('input', updateChildBoxes);
+      document.getElementById('numChildren').addEventListener('input', updateChildBoxes);
 
       const form = document.getElementById('regForm');
       const submitBtn = form.querySelector('button[type="submit"]');
       const thankYou = document.getElementById('thankYouMessage');
       const closeBtn = thankYou.querySelector('.close-btn');
+      const paypalInstruction = document.getElementById('paypalInstruction');
 
-      // Close handler
-      closeBtn.addEventListener('click', () => {
-        thankYou.style.display = 'none';
-      });
+      closeBtn.addEventListener('click', () => thankYou.style.display = 'none');
 
-      // highlight invalid on submit
       form.addEventListener('submit', e => {
         if (!form.checkValidity()) {
           e.preventDefault();
@@ -425,26 +417,22 @@
       });
       submitBtn.disabled = !form.checkValidity();
 
-      document.getElementById('paymentMethod')
-        .addEventListener('change', function() {
-          document.querySelector('.paypal-button').style.display =
-            this.value === 'Pay Now Via PayPal' ? 'block' : 'none';
-          document.getElementById('paymentDetailsContainer').style.display =
-            this.value === 'Paid' ? 'block' : 'none';
-        });
+      document.getElementById('paymentMethod').addEventListener('change', function() {
+        const paypalBtnDiv = document.querySelector('.paypal-button');
+        paypalBtnDiv.style.display = this.value === 'Pay Now Via PayPal' ? 'block' : 'none';
+        paypalInstruction.style.display = this.value === 'Pay Now Via PayPal' ? 'block' : 'none';
+      });
 
-      // Show overlay on hidden‑iframe load
       let expecting = false;
       form.addEventListener('submit', () => expecting = true);
-      document.querySelector('iframe[name="hidden_iframe"]')
-        .addEventListener('load', () => {
-          if (expecting) {
-            thankYou.style.display = 'block';
-            form.reset();
-            updateChildBoxes();
-            expecting = false;
-          }
-        });
+      document.querySelector('iframe[name="hidden_iframe"]').addEventListener('load', () => {
+        if (expecting) {
+          thankYou.style.display = 'block';
+          form.reset();
+          updateChildBoxes();
+          expecting = false;
+        }
+      });
     });
   </script>
 </body>
